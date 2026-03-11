@@ -28,3 +28,13 @@ header{
     padding: 1rem 0;
     transition: all 0.3s ease;
 }
+
+.header-scrolled {
+    box-shadow: 0 2px 20px rgb(0,0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
