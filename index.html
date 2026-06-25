@@ -1,350 +1,1537 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=">
-    <title>Serviced Accomadation</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BJH Living — Serviced Accommodation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ─── TOKENS ─────────────────────────────────────────── */
+  :root {
+    --cream:   #F0EDEA;
+    --white:   #FAFAF9;
+    --ink:     #111111;
+    --mid:     #4A4845;
+    --pale:    #E5E1DC;
+    --accent:  #8C7B6B;
+    --rule:    rgba(17,17,17,0.15);
+
+    --display: 'Cormorant Garamond', Georgia, serif;
+    --body:    'Inter', system-ui, sans-serif;
+
+    --max: 1200px;
+    --pad: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  /* ─── RESET ──────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--body); background: var(--white); color: var(--ink); font-size: 16px; line-height: 1.6; }
+  img { display: block; max-width: 100%; }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+  button { cursor: pointer; border: none; background: none; font: inherit; }
+
+  /* ─── PAGE SECTIONS (hidden by default) ─────────────── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ─── NAV ────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem var(--pad);
+    background: rgba(250,250,249,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.3s;
+  }
+  .nav-logo {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    display: flex; align-items: baseline; gap: 0.3rem;
+  }
+  .nav-logo span { font-size: 0.75rem; font-family: var(--body); font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; color: var(--mid); transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+  .nav-cta {
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    border: 1px solid var(--ink); padding: 0.6rem 1.4rem; color: var(--ink);
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--white); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--white); z-index: 99; flex-direction: column;
+    align-items: center; justify-content: center; gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: var(--display); font-size: 2rem; font-weight: 300; color: var(--ink); }
+  .mobile-close { position: absolute; top: 1.5rem; right: var(--pad); font-size: 1.5rem; }
+
+  /* ─── HELPERS ────────────────────────────────────────── */
+  .container { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+  .section { padding: 6rem 0; }
+  .section-sm { padding: 3rem 0; }
+  .bg-cream { background: var(--cream); }
+  .bg-dark { background: var(--ink); color: var(--white); }
+
+  .eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); font-weight: 400; margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .eyebrow::before, .eyebrow::after { content: ''; flex: 0 0 2rem; height: 1px; background: var(--accent); }
+
+  h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; line-height: 1.1; }
+  h1 { font-size: clamp(3rem, 6vw, 5.5rem); }
+  h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
+  h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
+
+  .btn-primary {
+    display: inline-block; font-size: 0.75rem; letter-spacing: 0.15em;
+    text-transform: uppercase; border: 1px solid var(--ink);
+    padding: 0.9rem 2.2rem; color: var(--ink); background: transparent;
+    transition: all 0.25s; font-weight: 400;
+  }
+  .btn-primary:hover { background: var(--ink); color: var(--white); }
+  .btn-light {
+    display: inline-block; font-size: 0.75rem; letter-spacing: 0.15em;
+    text-transform: uppercase; border: 1px solid var(--white);
+    padding: 0.9rem 2.2rem; color: var(--white); background: transparent;
+    transition: all 0.25s; font-weight: 400;
+  }
+  .btn-light:hover { background: var(--white); color: var(--ink); }
+
+  .rule { width: 3rem; height: 1px; background: var(--accent); margin: 1.5rem 0; }
+
+  /* ─── HERO ───────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 0;
+  }
+  .hero-text {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem var(--pad) 4rem;
+    background: var(--cream);
+  }
+  .hero-text h1 { margin-bottom: 1.5rem; color: var(--ink); }
+  .hero-text h1 em { font-style: italic; color: var(--accent); }
+  .hero-text p { font-size: 1.05rem; color: var(--mid); max-width: 42ch; margin-bottom: 2.5rem; line-height: 1.8; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero-img {
+    position: relative; overflow: hidden;
+    background: var(--ink);
+  }
+  .hero-img-inner {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #2C2825 0%, #1A1715 50%, #0D0C0B 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-placeholder {
+    text-align: center; color: rgba(255,255,255,0.15);
+    font-family: var(--display); font-size: 1rem; letter-spacing: 0.1em;
+    padding: 2rem;
+  }
+  .hero-placeholder .big { font-size: 6rem; opacity: 0.08; font-weight: 300; line-height: 1; }
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+  }
+  .hero-scroll::after { content: ''; width: 1px; height: 3rem; background: rgba(255,255,255,0.2); }
+
+  /* ─── TRUST BAR ──────────────────────────────────────── */
+  .trust-bar {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 1.75rem 0;
+  }
+  .trust-bar .container { display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
+  .trust-item { display: flex; align-items: center; gap: 0.75rem; }
+  .trust-icon { font-size: 1.1rem; opacity: 0.5; }
+  .trust-text { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); }
+
+  /* ─── INTRO SPLIT ────────────────────────────────────── */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .split-img-box {
+    aspect-ratio: 4/5; background: var(--pale);
+    position: relative; overflow: hidden;
+  }
+  .split-img-inner {
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, #C8C3BC 0%, #9E978E 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .img-label {
+    font-family: var(--display); font-size: 4rem; font-weight: 300;
+    color: rgba(17,17,17,0.12); text-align: center; letter-spacing: -0.02em;
+  }
+  .split-content p { color: var(--mid); line-height: 1.8; margin-bottom: 1.2rem; }
+
+  /* ─── PROPERTIES GRID ────────────────────────────────── */
+  .props-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .prop-card { background: var(--white); border: 1px solid var(--rule); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+  .prop-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+  .prop-img { aspect-ratio: 4/3; background: var(--pale); position: relative; overflow: hidden; }
+  .prop-img-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .prop-img-inner.p1 { background: linear-gradient(135deg, #BDB8B2 0%, #8C867E 100%); }
+  .prop-img-inner.p2 { background: linear-gradient(135deg, #C4B8A8 0%, #96897B 100%); }
+  .prop-img-inner.p3 { background: linear-gradient(135deg, #B8C0C4 0%, #8096A0 100%); }
+  .prop-num { font-family: var(--display); font-size: 5rem; font-weight: 300; color: rgba(17,17,17,0.1); }
+  .prop-badge {
+    position: absolute; top: 1rem; left: 1rem;
+    background: var(--ink); color: var(--white);
+    font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+  }
+  .prop-body { padding: 1.5rem; }
+  .prop-location { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .prop-name { font-family: var(--display); font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .prop-desc { font-size: 0.85rem; color: var(--mid); line-height: 1.6; margin-bottom: 1.25rem; }
+  .prop-meta { display: flex; gap: 1.2rem; margin-bottom: 1.25rem; }
+  .prop-meta span { font-size: 0.72rem; letter-spacing: 0.05em; color: var(--mid); }
+  .prop-meta span strong { color: var(--ink); }
+  .prop-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--rule); padding-top: 1rem; }
+  .prop-price { font-family: var(--display); font-size: 1.2rem; }
+  .prop-price small { font-family: var(--body); font-size: 0.7rem; color: var(--mid); }
+  .prop-link { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; transition: color 0.2s; }
+  .prop-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ─── AMENITIES ──────────────────────────────────────── */
+  .amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+  .amenity-item {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    text-align: left;
+    background: var(--white);
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .amenity-item:nth-child(4n) { border-right: none; }
+  .amenity-item:nth-child(5), .amenity-item:nth-child(6),
+  .amenity-item:nth-child(7), .amenity-item:nth-child(8) { border-bottom: none; }
+  .amenity-item:hover { background: var(--cream); }
+  .amenity-icon-wrap {
+    width: 48px; height: 48px;
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.4rem;
+    background: var(--cream);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .amenity-item:hover .amenity-icon-wrap { background: var(--ink); border-color: var(--ink); }
+  .amenity-item:hover .amenity-icon-wrap svg path,
+  .amenity-item:hover .amenity-icon-wrap svg rect,
+  .amenity-item:hover .amenity-icon-wrap svg circle,
+  .amenity-item:hover .amenity-icon-wrap svg line,
+  .amenity-item:hover .amenity-icon-wrap svg polyline,
+  .amenity-item:hover .amenity-icon-wrap svg ellipse { stroke: #FAFAF9; }
+  .amenity-name { font-family: var(--display); font-size: 1.1rem; margin-bottom: 0.4rem; font-weight: 400; }
+  .amenity-desc { font-size: 0.78rem; color: var(--mid); line-height: 1.65; }
+
+  /* ─── WHY CHOOSE ─────────────────────────────────────── */
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); }
+  .why-item { background: var(--white); padding: 3rem; }
+  .why-num { font-family: var(--display); font-size: 3.5rem; font-weight: 300; color: var(--pale); line-height: 1; margin-bottom: 1rem; }
+  .why-title { font-family: var(--display); font-size: 1.4rem; margin-bottom: 0.75rem; }
+  .why-text { font-size: 0.88rem; color: var(--mid); line-height: 1.75; }
+
+  /* ─── REVIEWS ────────────────────────────────────────── */
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .review-card { background: var(--white); padding: 2rem; border: 1px solid var(--rule); }
+  .stars { color: var(--accent); font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .review-text { font-family: var(--display); font-size: 1.05rem; font-style: italic; line-height: 1.6; margin-bottom: 1.25rem; color: var(--ink); }
+  .review-author { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); }
+
+  /* ─── CTA BAND ───────────────────────────────────────── */
+  .cta-band {
+    background: var(--ink); color: var(--white);
+    padding: 6rem 0; text-align: center;
+  }
+  .cta-band h2 { font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 1rem; }
+  .cta-band p { color: rgba(255,255,255,0.55); margin-bottom: 2.5rem; max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ─── FOOTER ─────────────────────────────────────────── */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.5);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 4rem 0 2rem;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand { font-family: var(--display); font-size: 1.8rem; font-weight: 400; color: var(--white); margin-bottom: 0.3rem; }
+  .footer-brand-sub { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1rem; }
+  .footer-about { font-size: 0.83rem; line-height: 1.7; }
+  .footer-col h4 { font-family: var(--body); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 1.2rem; }
+  .footer-col ul { display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col li a { font-size: 0.85rem; color: rgba(255,255,255,0.55); transition: color 0.2s; }
+  .footer-col li a:hover { color: var(--white); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-bottom p { font-size: 0.75rem; }
+  .social-links { display: flex; gap: 1rem; }
+  .social-links a { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); transition: color 0.2s; }
+  .social-links a:hover { color: var(--white); }
+
+  /* ─── PAGE HERO (inner pages) ────────────────────────── */
+  .page-hero {
+    padding: 10rem 0 5rem;
+    background: var(--cream);
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .page-hero h1 { margin-bottom: 1rem; }
+  .page-hero p { color: var(--mid); font-size: 1.05rem; max-width: 55ch; margin: 0 auto; line-height: 1.8; }
+
+  /* ─── PROPERTY DETAIL ────────────────────────────────── */
+  .prop-detail-header { display: grid; grid-template-columns: 3fr 2fr; gap: 0; min-height: 65vh; }
+  .prop-detail-img { background: linear-gradient(135deg, #BDB8B2 0%, #8C867E 100%); display: flex; align-items: center; justify-content: center; }
+  .prop-detail-img .img-label { font-size: 8rem; }
+  .prop-detail-sidebar { padding: 4rem 3rem; background: var(--cream); display: flex; flex-direction: column; justify-content: center; }
+  .prop-detail-sidebar .prop-location { margin-bottom: 0.5rem; }
+  .prop-detail-sidebar h1 { font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: 1rem; }
+  .prop-detail-sidebar p { color: var(--mid); line-height: 1.8; margin-bottom: 2rem; }
+  .detail-price { font-family: var(--display); font-size: 2rem; margin-bottom: 0.25rem; }
+  .detail-price small { font-family: var(--body); font-size: 0.85rem; color: var(--mid); }
+  .prop-amenities { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 2rem; }
+  .prop-amenities span { font-size: 0.8rem; color: var(--mid); display: flex; align-items: center; gap: 0.5rem; }
+  .prop-amenities span::before { content: '✓'; color: var(--accent); font-weight: 600; }
+
+  /* ─── BOOKING FORM ───────────────────────────────────── */
+  .booking-card {
+    background: var(--white); border: 1px solid var(--rule); padding: 2.5rem;
+    position: sticky; top: 6rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+  .form-group label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
+  .form-group input, .form-group select, .form-group textarea {
+    border: 1px solid var(--rule); padding: 0.75rem 1rem;
+    font: inherit; font-size: 0.9rem; background: var(--cream); color: var(--ink);
+    outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--ink); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .btn-full { width: 100%; text-align: center; padding: 1rem; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; background: var(--ink); color: var(--white); border: 1px solid var(--ink); transition: all 0.25s; }
+  .btn-full:hover { background: transparent; color: var(--ink); }
+
+  /* ─── ABOUT PAGE — PREMIUM VALUES ───────────────────── */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+  .value-card {
+    padding: 2.75rem 2.25rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.35s ease;
+  }
+  .value-card:nth-child(3n) { border-right: none; }
+  .value-card:nth-child(4), .value-card:nth-child(5), .value-card:nth-child(6) { border-bottom: none; }
+  .value-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+  .value-card:hover { background: var(--cream); }
+  .value-card:hover::before { transform: scaleX(1); }
+  .value-icon-wrap {
+    width: 56px; height: 56px;
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.75rem;
+    background: var(--cream);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .value-card:hover .value-icon-wrap {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+  .value-icon-wrap svg { transition: all 0.3s; }
+  .value-card:hover .value-icon-wrap svg path,
+  .value-card:hover .value-icon-wrap svg rect,
+  .value-card:hover .value-icon-wrap svg circle,
+  .value-card:hover .value-icon-wrap svg line,
+  .value-card:hover .value-icon-wrap svg polyline,
+  .value-card:hover .value-icon-wrap svg polygon { stroke: #FAFAF9; }
+  .value-title { font-family: var(--display); font-size: 1.25rem; margin-bottom: 0.65rem; font-weight: 400; }
+  .value-text { font-size: 0.84rem; color: var(--mid); line-height: 1.8; }
+
+  /* ─── CONTACT PAGE ───────────────────────────────────── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+  .contact-info h3 { font-family: var(--display); font-size: 1.8rem; margin-bottom: 1rem; }
+  .contact-info p { color: var(--mid); line-height: 1.8; margin-bottom: 2rem; }
+  .contact-details { display: flex; flex-direction: column; gap: 1.25rem; }
+  .contact-detail { display: flex; gap: 1rem; }
+  .contact-detail-icon { font-size: 1rem; color: var(--accent); flex-shrink: 0; margin-top: 0.1rem; }
+  .contact-detail-text strong { display: block; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem; }
+  .contact-detail-text span { font-size: 0.9rem; color: var(--mid); }
+
+  /* ─── PROPERTY OWNERS ────────────────────────────────── */
+  .owners-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: 60vh; }
+  .owners-img { background: linear-gradient(160deg, #C8C3BC 0%, #9E978E 100%); display: flex; align-items: center; justify-content: center; }
+  .owners-content { padding: 5rem; display: flex; flex-direction: column; justify-content: center; background: var(--cream); }
+  .owners-content h2 { margin-bottom: 1rem; }
+  .owners-content p { color: var(--mid); line-height: 1.8; margin-bottom: 1.5rem; }
+  .benefits-list { margin: 1.5rem 0 2.5rem; }
+  .benefits-list li { font-size: 0.88rem; color: var(--mid); padding: 0.6rem 0; border-bottom: 1px solid var(--rule); display: flex; align-items: center; gap: 0.75rem; }
+  .benefits-list li::before { content: '→'; color: var(--accent); }
+
+  /* ─── TEXT CENTER ─────────────────────────────────────── */
+  .text-center { text-align: center; }
+  .mb-1 { margin-bottom: 1rem; }
+  .mb-2 { margin-bottom: 2rem; }
+  .mb-3 { margin-bottom: 3rem; }
+  .mt-2 { margin-top: 2rem; }
+  .mx-auto { margin-left: auto; margin-right: auto; }
+  .max-prose { max-width: 60ch; }
+
+  /* ─── RESPONSIVE ─────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-text { padding: 7rem 1.5rem 3rem; }
+    .hero-img { min-height: 50vh; }
+    .split, .contact-grid, .owners-split { grid-template-columns: 1fr; gap: 2rem; }
+    .owners-content { padding: 3rem 1.5rem; }
+    .props-grid { grid-template-columns: 1fr; }
+    .amenities-grid { grid-template-columns: repeat(2, 1fr); }
+    .amenity-item:nth-child(4n) { border-right: 1px solid var(--rule); }
+    .amenity-item:nth-child(2n) { border-right: none; }
+    .amenity-item:nth-child(5), .amenity-item:nth-child(6),
+    .amenity-item:nth-child(7), .amenity-item:nth-child(8) { border-bottom: 1px solid var(--rule); }
+    .amenity-item:nth-child(7), .amenity-item:nth-child(8) { border-bottom: none; }
+    .why-grid { grid-template-columns: 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .values-grid { grid-template-columns: 1fr; }
+    .value-card:nth-child(3n) { border-right: 1px solid var(--rule); }
+    .value-card:nth-child(4), .value-card:nth-child(5), .value-card:nth-child(6) { border-bottom: 1px solid var(--rule); }
+    .value-card:last-child { border-bottom: none; }
+    .prop-detail-header { grid-template-columns: 1fr; }
+    .prop-detail-sidebar { padding: 2.5rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .trust-bar .container { justify-content: center; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .amenities-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
-    <!--Header -->
-<header id="header">
-    <h1>Welcome to Serviced Accomadation</h1>
-    <nav class="container">
-       <h1 class="logo"> Elite Homes</h1>
-       <ul class="nav-links" id="nav-links">
-       <li><a href="#home"></a>Home</li>
-       <li><a href="#properties"></a>Properties</li>
-       <li><a href="#services"></a>Services</li>
-       <li><a href="#about"></a>About</li>
-       <li><a href="#contact"></a>Contact</li></ul>
 
-    <a href="contact" class="cta-button">Get Started</a>
-    <div class="mobile-menu-btn" id="mobileMenuBtn"></div>
-    <span></span>
-    <span></span>
-    <span></span>
-        </nav>
-</header>
+<!-- ═══ NAV ═════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')" style="cursor:pointer">
+    BJH <span>Living</span>
+  </div>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')" class="active" id="nav-home">Home</a>
+    <a href="#" onclick="showPage('properties')" id="nav-properties">Properties</a>
+    <a href="#" onclick="showPage('about')" id="nav-about">About Us</a>
+    <a href="#" onclick="showPage('owners')" id="nav-owners">Property Owners</a>
+    <a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a>
+    <a href="#" class="nav-cta" onclick="showPage('contact')">Book Now</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-<main>
-  <section id="home" class="hero"> 
-   <div class="hero-content">
-   <h1>Serviced Accomadation Stays</h1>
-   <p>Find your dream Stay here at Serviced Accomadation Stays</p>
-   <div class="hero-buttons">
-    <a href="properties" class="btn-primary">View Property</a>
-    <a href="contact" class="btn-secondary">Contact Agent</a>
-   </div>
-   </div>
-    </section>
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#" onclick="showPage('home');toggleMenu()">Home</a>
+  <a href="#" onclick="showPage('properties');toggleMenu()">Properties</a>
+  <a href="#" onclick="showPage('about');toggleMenu()">About Us</a>
+  <a href="#" onclick="showPage('owners');toggleMenu()">Property Owners</a>
+  <a href="#" onclick="showPage('contact');toggleMenu()">Contact</a>
+</div>
 
-    <!--Features Section-->
+<!-- ═══════════════════════════════════════════════════════
+     HOME PAGE
+═══════════════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
 
-    <section class="features" id="services">
-        <div class="container">
-            <h2 class="section-title fade-in">Why Choose Serviced Acommadation</h2>
-            <div class="features-grid">
-                <div class="feature-card fade-in">
-                    <i class="fas fa-search feature-icon"></i>
-                    <h3>Advanced Search</h3>
-                    <p>Find your home with our powerful search filters and advanced match making algorith</p>
-                </div>
-                   <div class="feature-card fade-in">
-                    <i class="fas fa-handshake feature-icon"></i>
-                    <h3>Expert Guidance</h3>
-                    <p>Get proffesional guidance from our expert estate agents</p>
-                </div>
-                   <div class="feature-card fade-in">
-                    <i class="fas fa-search feature-icon"></i>
-                    <h3>Secure transactions</h3>
-                    <p>All Transactions are protected with our secure platform and our legal compliance garruntee</p>
-                </div>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-text">
+      <div class="eyebrow">Serviced Accommodation</div>
+      <h1>Where<br>comfort<br><em>meets home</em></h1>
+      <p>Premium serviced apartments designed for modern living. Whether you're here for business, relocation, or a longer escape — BJH Living is your home away from home.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary" onclick="showPage('properties')">View Properties</a>
+        <a href="#" class="btn-primary" style="border-color:var(--accent);color:var(--accent)" onclick="showPage('contact')">Enquire Now</a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <div class="hero-img-inner">
+        <div class="hero-placeholder">
+          <div class="big">BJH</div>
+          <div>Add your hero image here</div>
+        </div>
+      </div>
+      <div class="hero-scroll">Scroll</div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <div class="trust-bar">
+    <div class="container">
+      <div class="trust-item"><span class="trust-icon">⭐</span><span class="trust-text">5-Star Rated Stays</span></div>
+      <div class="trust-item"><span class="trust-icon">🔑</span><span class="trust-text">Flexible Check-in</span></div>
+      <div class="trust-item"><span class="trust-icon">🏡</span><span class="trust-text">3 Premium Properties</span></div>
+      <div class="trust-item"><span class="trust-icon">📞</span><span class="trust-text">Dedicated Guest Support</span></div>
+      <div class="trust-item"><span class="trust-icon">✓</span><span class="trust-text">Best Direct Rates</span></div>
+    </div>
+  </div>
+
+  <!-- Intro Split -->
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div class="split-img-box">
+          <div class="split-img-inner">
+            <div class="img-label">BJH Living</div>
+          </div>
+        </div>
+        <div class="split-content">
+          <div class="eyebrow">Our Story</div>
+          <h2>A different kind of stay</h2>
+          <div class="rule"></div>
+          <p>BJH Living was founded on a simple belief: that a serviced apartment should feel like your own space — beautifully presented, thoughtfully equipped, and looked after so you never have to worry.</p>
+          <p>Every property in our portfolio is hand-selected, professionally managed, and designed with the guest experience at the centre of every decision. We're not a faceless agency — we're a team that genuinely cares about where you rest your head.</p>
+          <p>From one-night stays to extended corporate lets, we have the flexibility and expertise to make every stay seamless.</p>
+          <br>
+          <a href="#" class="btn-primary" onclick="showPage('about')">Learn About Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Properties Preview -->
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="text-center mb-3">
+        <div class="eyebrow" style="justify-content:center">Our Portfolio</div>
+        <h2>Hand-picked properties</h2>
+        <p class="max-prose mx-auto mt-2" style="color:var(--mid); line-height:1.8">Each BJH Living property is selected for its location, quality, and character — then fitted out to our exacting standard so you always know what to expect.</p>
+      </div>
+      <div class="props-grid">
+
+        <!-- Property 1 -->
+        <div class="prop-card">
+          <div class="prop-img">
+            <div class="prop-img-inner p1"><span class="prop-num">01</span></div>
+            <div class="prop-badge">Available</div>
+          </div>
+          <div class="prop-body">
+            <div class="prop-location">City Centre</div>
+            <div class="prop-name">The Linden Suite</div>
+            <div class="prop-desc">A light-filled one-bedroom apartment with a fully equipped kitchen, king-size bed, and fast Wi-Fi — ideal for professionals and couples.</div>
+            <div class="prop-meta">
+              <span><strong>1</strong> Bed</span>
+              <span><strong>1</strong> Bath</span>
+              <span><strong>2</strong> Guests</span>
             </div>
-        </div>
-    </section>
-
-    <!--Properties Section-->
-    <section class="properties" id="properties">
-        <div class="container">
-            <h2 class="section-title fade-in">Featured Properties</h2>
-            <div class="properties-grid">
-                <div class="property-card fade-in">
-                    <div class="property-image">
-                        <div class="property-price">$850,000</div>
-                    </div>
-                    <div class="property-info">
-                        <h3 class="property-title">Modern Family Villa</h3>
-                        <div class="property-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span> Beverly Hills, CA</span>
-                        </div>
-
-                        <div class="property-features">
-                        <div class="property-feauture">
-                            <i class="fas fa-bed"></i>
-                            <span>4 Beds</span>
-                        </div>
-
-                         
-                        <div class="property-feauture">
-                            <i class="fas fa-bath"></i>
-                            <span>3 Bathroons</span>
-                        </div>
-
-                    
-                        <div class="property-feauture">
-                            <i class="fas fa-ruler-combined"></i>
-                            <span>2,500sqft</span>
-                        </div>
-
-                        </div>
-                    </div>
-                </div>
+            <div class="prop-footer">
+              <div class="prop-price">from £85 <small>/ night</small></div>
+              <a href="#" class="prop-link" onclick="showPage('property1')">View Details</a>
             </div>
-              <div class="property-card fade-in">
-                    <div class="property-image">
-                        <div class="property-price">$850,000</div>
-                    </div>
-                    <div class="property-info">
-                        <h3 class="property-title">Modern Family Villa</h3>
-                        <div class="property-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span> Beverly Hills, CA</span>
-                        </div>
+          </div>
+        </div>
 
-                        <div class="property-features">
-                        <div class="property-feauture">
-                            <i class="fas fa-bed"></i>
-                            <span>4 Beds</span>
-                        </div>
-
-                         
-                        <div class="property-feauture">
-                            <i class="fas fa-bath"></i>
-                            <span>3 Bathroons</span>
-                        </div>
-
-                    
-                        <div class="property-feauture">
-                            <i class="fas fa-ruler-combined"></i>
-                            <span>2,500sqft</span>
-                        </div>
-
-                        </div>
-                    </div>
-                </div>
+        <!-- Property 2 -->
+        <div class="prop-card">
+          <div class="prop-img">
+            <div class="prop-img-inner p2"><span class="prop-num">02</span></div>
+            <div class="prop-badge">Available</div>
+          </div>
+          <div class="prop-body">
+            <div class="prop-location">Suburban Retreat</div>
+            <div class="prop-name">The Ashwood Apartment</div>
+            <div class="prop-desc">A spacious two-bedroom home with a private garden, modern kitchen, and off-road parking — perfect for families or longer corporate stays.</div>
+            <div class="prop-meta">
+              <span><strong>2</strong> Beds</span>
+              <span><strong>2</strong> Baths</span>
+              <span><strong>4</strong> Guests</span>
             </div>
-              <div class="property-card fade-in">
-                    <div class="property-image">
-                        <div class="property-price">$850,000</div>
-                    </div>
-                    <div class="property-info">
-                        <h3 class="property-title">Modern Family Villa</h3>
-                        <div class="property-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span> Beverly Hills, CA</span>
-                        </div>
-
-                        <div class="property-features">
-                        <div class="property-feauture">
-                            <i class="fas fa-bed"></i>
-                            <span>4 Beds</span>
-                        </div>
-
-                         
-                        <div class="property-feauture">
-                            <i class="fas fa-bath"></i>
-                            <span>3 Bathroons</span>
-                        </div>
-
-                    
-                        <div class="property-feauture">
-                            <i class="fas fa-ruler-combined"></i>
-                            <span>2,500sqft</span>
-                        </div>
-
-                        </div>
-                    </div>
-                </div>
-              <div class="property-card fade-in">
-                    <div class="property-image">
-                        <div class="property-price">$850,000</div>
-                    </div>
-                    <div class="property-info">
-                        <h3 class="property-title">Modern Family Villa</h3>
-                        <div class="property-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span> Beverly Hills, CA</span>
-                        </div>
-
-                        <div class="property-features">
-                        <div class="property-feauture">
-                            <i class="fas fa-bed"></i>
-                            <span>4 Beds</span>
-                        </div>
-
-                         
-                        <div class="property-feauture">
-                            <i class="fas fa-bath"></i>
-                            <span>3 Bathroons</span>
-                        </div>
-
-                    
-                        <div class="property-feauture">
-                            <i class="fas fa-ruler-combined"></i>
-                            <span>2,500sqft</span>
-                        </div>
-
-                        </div>
-                    </div>
-                </div>
-    </section>
-    
-    <!-- Stats Section -->
-     <section class="Stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item fade-in">
-                    <h3 id="properties-sold">0</h3>
-                    <p>Properties Sold</p>
-                </div>
-                  <div class="stat-item fade-in">
-                    <h3 id="happyClients">0</h3>
-                    <p>Happy Clients</p>
-                </div>
-                  <div class="stat-item fade-in">
-                    <h3 id="yearsExperience">0</h3>
-                    <p>Years Experience</p>
-                </div>
-                  <div class="stat-item fade-in">
-                    <h3 id="awards">0</h3>
-                    <p>Awards Won</p>
-                </div>
+            <div class="prop-footer">
+              <div class="prop-price">from £120 <small>/ night</small></div>
+              <a href="#" class="prop-link" onclick="showPage('property2')">View Details</a>
             </div>
+          </div>
         </div>
-     </section>
 
-     <!-- Contact Section -->
-
-     <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section-title fade-in">Get In Touch</h2>
-            <div class="class-content">
-                <div class="content-info-fade in">
-                    <div class="contact-item">
-                        <i class="fas fa-phone contact-icon"></i>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>07859059864</p>
-                        </div>
-                          <div class="contact-item">
-                        <i class="fas fa-map-marker-alt contact-icon"></i>
-                        <div>
-                            <h4>Office</h4>
-                            <p>7 G Street, 4HY TLQ</p>
-                        </div>
-                    </div>
-                      <div class="contact-item">
-                        <i class="fas fa-phone contact-icon"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p>cheese@item.com</p>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
-               <form action="" class="contact-form fade in" id="contactForm">
-               <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required>
-               </div>
-
-                 <div class="form-group">
-                <label for="email">Email Adress</label>
-                <input type="email" id="email" name="email" required>
-               </div>
-
-                  <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" required>
-               </div>
-                 
-               <div class="form-group">
-                <label for="message">Message</label>
-                <textarea name="message" id="message" placeholder="Tell us about your property needs..." required></textarea>
-               </div>
-               <button type="submit" class="submit-btn">Send Message</button>
-               </form>
+        <!-- Property 3 -->
+        <div class="prop-card">
+          <div class="prop-img">
+            <div class="prop-img-inner p3"><span class="prop-num">03</span></div>
+            <div class="prop-badge">Available</div>
+          </div>
+          <div class="prop-body">
+            <div class="prop-location">Business Quarter</div>
+            <div class="prop-name">The Creston Studio</div>
+            <div class="prop-desc">A sleek, fully self-contained studio designed for the solo business traveller — with a dedicated workspace, smart TV, and express check-in.</div>
+            <div class="prop-meta">
+              <span><strong>Studio</strong></span>
+              <span><strong>1</strong> Bath</span>
+              <span><strong>1</strong> Guest</span>
             </div>
-        </div>
-     </section>
-
-     <!-- Footer -->
-      <footer id="about">
-     <div class="container">
-     <div class="footer-content">
-        <div class="footer-section">
-            <h3>Codynn Homes</h3>
-            <p> Your trusted partner is finding the perfect home. We provide extra care</p>
-        <div class="social-links">
-           <a href="#"><i class="fab fa-facebook-f"></i>
-            <a href="#"><i class="fab fa-twitter"></i>     
-                <a href="#"><i class="fab fa-instagram"></i>     
-                    <a href="#"><i class="fab fa-linkedin-in"></i>              
+            <div class="prop-footer">
+              <div class="prop-price">from £65 <small>/ night</small></div>
+              <a href="#" class="prop-link" onclick="showPage('property3')">View Details</a>
+            </div>
+          </div>
         </div>
 
-            <h3>Quick links</h3>
-            <p> Join today</p>
-        <div class="social-links">
-           <a href="home">Home</i>
-            <a href="properties">Properties</i>     
-                <a href="about">About</i>     
-                    <a href="services">Services</i>   
-                         <a href="contact">Contacr</i>              
+      </div>
+    </div>
+  </section>
+
+  <!-- Amenities -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-3">
+        <div class="eyebrow" style="justify-content:center">What's Included</div>
+        <h2>Every stay, without exception</h2>
+      </div>
+      <div class="amenities-grid">
+
+        <div class="amenity-item">
+          <div class="amenity-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 2C11 2 4 6 4 12C4 15.31 7.13 18 11 18C14.87 18 18 15.31 18 12C18 6 11 2 11 2Z" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/>
+              <line x1="11" y1="18" x2="11" y2="21" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+              <line x1="7.5" y1="20" x2="14.5" y2="20" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M8 12C8 10.34 9.34 9 11 9" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="amenity-name">Superfast Wi-Fi</div>
+          <div class="amenity-desc">High-speed broadband throughout — stream, work, and call with ease.</div>
         </div>
 
-            <h3>Follow us</h3>
-            <p> See our socials</p>
-        <div class="social-links">
-           <a href="#"><i class="fab fa-facebook-f"></i>
-            <a href="#"><i class="fab fa-twitter"></i>     
-                <a href="#"><i class="fab fa-instagram"></i>     
-                    <a href="#"><i class="fab fa-linkedin-in"></i>              
+        <div class="amenity-item">
+          <div class="amenity-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="9" width="18" height="11" rx="0.5" stroke="#111111" stroke-width="1.2"/>
+              <path d="M6 9V7C6 4.79 8.24 3 11 3C13.76 3 16 4.79 16 7V9" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+              <circle cx="11" cy="14.5" r="1.5" stroke="#111111" stroke-width="1.2"/>
+              <line x1="11" y1="16" x2="11" y2="18" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="amenity-name">Full Kitchen</div>
+          <div class="amenity-desc">Every property has a fully fitted kitchen with everything you need.</div>
         </div>
 
-            <h3>Services</h3>
-        <div class="social-links">
-           <a href="">Property Sales </i>
-            <a href="">Property Search</i>     
-                <a href="">Property Rental</i>     
-                    <a href="">Investment Managment</i>   
-                         <a href="">Market Analysis</i>              
+        <div class="amenity-item">
+          <div class="amenity-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="8" width="18" height="11" rx="0.5" stroke="#111111" stroke-width="1.2"/>
+              <path d="M5 8V6.5C5 5.12 7.69 4 11 4C14.31 4 17 5.12 17 6.5V8" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+              <line x1="2" y1="12" x2="20" y2="12" stroke="#111111" stroke-width="1.2"/>
+              <line x1="7" y1="12" x2="7" y2="19" stroke="#111111" stroke-width="1.2"/>
+              <line x1="15" y1="12" x2="15" y2="19" stroke="#111111" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div class="amenity-name">Hotel-Grade Linen</div>
+          <div class="amenity-desc">Fresh, quality bedding and towels provided and changed regularly.</div>
         </div>
 
-         <div class="footer-section">
-            <h3>Contact Info</h3>
-            <p> Join today</p>
-        <div class="social-links">
-          <p><i class="fas fa-phone"></i>09182892821</p>
-          <p> <i class="fas fa-envelope"></i>house@gmail.com</p> 
-              <p><i class="fas fa-map-marker-alt"></i>7 Burnage Lane</p>
-                 <p> Some City</p>      
+        <div class="amenity-item">
+          <div class="amenity-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="3" width="18" height="13" rx="0.5" stroke="#111111" stroke-width="1.2"/>
+              <line x1="7" y1="19" x2="15" y2="19" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+              <line x1="11" y1="16" x2="11" y2="19" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+              <circle cx="11" cy="9.5" r="2" stroke="#111111" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div class="amenity-name">Smart TV</div>
+          <div class="amenity-desc">Netflix-ready smart televisions in every lounge and bedroom.</div>
         </div>
 
+        <div class="amenity-item">
+          <div class="amenity-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 4L6 20H16L18 4" stroke="#111111" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="2" y1="4" x2="20" y2="4" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M8 4C8 4 8 2 11 2C14 2 14 4 14 4" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+              <line x1="9" y1="8" x2="9.5" y2="16" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+              <line x1="13" y1="8" x2="12.5" y2="16" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="amenity-name">Regular Cleaning</div>
+          <div class="amenity-desc">Professional mid-stay cleans included on longer bookings.</div>
         </div>
-     </div>
 
-     <p>&copy; 2026 Serviced Accomadation Stays | privacy policy | terms and conditions | </p>
-     </div>
-      </footer>
+        <div class="amenity-item">
+          <div class="amenity-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="8" width="16" height="11" rx="0.5" stroke="#111111" stroke-width="1.2"/>
+              <path d="M8 8V6C8 4.34 9.34 3 11 3C12.66 3 14 4.34 14 6V8" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+              <circle cx="11" cy="14" r="2" stroke="#111111" stroke-width="1.2"/>
+              <line x1="11" y1="12" x2="11" y2="14" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="amenity-name">Flexible Check-in</div>
+          <div class="amenity-desc">Keyless or flexible entry to fit around your schedule.</div>
+        </div>
 
-</main>
-<script src="script.js"></script>
+        <div class="amenity-item">
+          <div class="amenity-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="13" width="16" height="7" rx="0.5" stroke="#111111" stroke-width="1.2"/>
+              <ellipse cx="11" cy="8" rx="4" ry="5" stroke="#111111" stroke-width="1.2"/>
+              <line x1="7" y1="8" x2="15" y2="8" stroke="#111111" stroke-width="1.2"/>
+              <line x1="11" y1="3" x2="11" y2="13" stroke="#111111" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div class="amenity-name">Parking Available</div>
+          <div class="amenity-desc">On-site or nearby parking at selected properties.</div>
+        </div>
+
+        <div class="amenity-item">
+          <div class="amenity-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 2C8.24 2 6 4.24 6 7C6 10.5 11 15 11 15C11 15 16 10.5 16 7C16 4.24 13.76 2 11 2Z" stroke="#111111" stroke-width="1.2"/>
+              <circle cx="11" cy="7" r="1.8" stroke="#111111" stroke-width="1.2"/>
+              <path d="M6 17C4.5 17.5 3 18.5 3 20H19C19 18.5 17.5 17.5 16 17" stroke="#111111" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="amenity-name">Guest Support</div>
+          <div class="amenity-desc">Our team is on hand before and throughout your stay.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose BJH -->
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="text-center mb-3">
+        <div class="eyebrow" style="justify-content:center">Why BJH Living</div>
+        <h2>The BJH difference</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-num">01</div>
+          <div class="why-title">Personally managed</div>
+          <div class="why-text">We're not a platform. Every property is personally overseen by our team, which means real accountability, real standards, and real people to call if you need anything.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">02</div>
+          <div class="why-title">Consistency you can rely on</div>
+          <div class="why-text">Whether it's your first stay or your fifth, you'll find the same high standard of cleanliness, comfort, and care. No surprises — just great accommodation.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">03</div>
+          <div class="why-title">Best rates, book direct</div>
+          <div class="why-text">Booking directly with BJH Living always gets you the best available rate. No platform fees, no hidden charges — transparent pricing from the start.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">04</div>
+          <div class="why-title">Flexible stays</div>
+          <div class="why-text">From a single night to a three-month corporate let, our properties work around you. We're happy to discuss bespoke arrangements for longer stays.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-3">
+        <div class="eyebrow" style="justify-content:center">Guest Reviews</div>
+        <h2>What our guests say</h2>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <div class="review-text">"Absolutely spotless, beautifully decorated, and the team were so helpful throughout. Felt like a proper home — not just a rental."</div>
+          <div class="review-author">Sarah M. — Business Traveller</div>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <div class="review-text">"We stayed for six weeks during a work relocation and couldn't have been happier. The kitchen was fully equipped, beds were amazing, and check-in was effortless."</div>
+          <div class="review-author">James T. — Corporate Relocation</div>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <div class="review-text">"Better than any hotel we've used. The space, the quality, the value — everything was excellent. Will absolutely book again on our next project."</div>
+          <div class="review-author">Rachel & Dan — Extended Stay</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <div class="cta-band">
+    <div class="container text-center">
+      <div class="eyebrow" style="justify-content:center; color:rgba(255,255,255,0.4)">Ready to Stay?</div>
+      <h2>Find your perfect property</h2>
+      <p>Whether you're booking for one night or three months, we'd love to help you find the right space.</p>
+      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap">
+        <a href="#" class="btn-light" onclick="showPage('properties')">Browse Properties</a>
+        <a href="#" class="btn-light" style="border-color:rgba(255,255,255,0.3); color:rgba(255,255,255,0.6)" onclick="showPage('contact')">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-home -->
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PROPERTIES PAGE
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-properties">
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow" style="justify-content:center">Our Portfolio</div>
+      <h1>Our Properties</h1>
+      <p>Three carefully curated serviced apartments, each designed for comfort, convenience, and a genuine sense of home.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="props-grid">
+
+        <div class="prop-card">
+          <div class="prop-img">
+            <div class="prop-img-inner p1"><span class="prop-num">01</span></div>
+            <div class="prop-badge">Available</div>
+          </div>
+          <div class="prop-body">
+            <div class="prop-location">City Centre</div>
+            <div class="prop-name">The Linden Suite</div>
+            <div class="prop-desc">A light-filled one-bedroom apartment with a fully equipped kitchen, king-size bed, and fast Wi-Fi — ideal for professionals and couples.</div>
+            <div class="prop-meta">
+              <span><strong>1</strong> Bed</span>
+              <span><strong>1</strong> Bath</span>
+              <span><strong>2</strong> Guests</span>
+            </div>
+            <div class="prop-footer">
+              <div class="prop-price">from £85 <small>/ night</small></div>
+              <a href="#" class="prop-link" onclick="showPage('property1')">View Details</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="prop-card">
+          <div class="prop-img">
+            <div class="prop-img-inner p2"><span class="prop-num">02</span></div>
+            <div class="prop-badge">Available</div>
+          </div>
+          <div class="prop-body">
+            <div class="prop-location">Suburban Retreat</div>
+            <div class="prop-name">The Ashwood Apartment</div>
+            <div class="prop-desc">A spacious two-bedroom home with a private garden, modern kitchen, and off-road parking — perfect for families or longer corporate stays.</div>
+            <div class="prop-meta">
+              <span><strong>2</strong> Beds</span>
+              <span><strong>2</strong> Baths</span>
+              <span><strong>4</strong> Guests</span>
+            </div>
+            <div class="prop-footer">
+              <div class="prop-price">from £120 <small>/ night</small></div>
+              <a href="#" class="prop-link" onclick="showPage('property2')">View Details</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="prop-card">
+          <div class="prop-img">
+            <div class="prop-img-inner p3"><span class="prop-num">03</span></div>
+            <div class="prop-badge">Available</div>
+          </div>
+          <div class="prop-body">
+            <div class="prop-location">Business Quarter</div>
+            <div class="prop-name">The Creston Studio</div>
+            <div class="prop-desc">A sleek, fully self-contained studio designed for the solo business traveller — with a dedicated workspace, smart TV, and express check-in.</div>
+            <div class="prop-meta">
+              <span><strong>Studio</strong></span>
+              <span><strong>1</strong> Bath</span>
+              <span><strong>1</strong> Guest</span>
+            </div>
+            <div class="prop-footer">
+              <div class="prop-price">from £65 <small>/ night</small></div>
+              <a href="#" class="prop-link" onclick="showPage('property3')">View Details</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="container text-center">
+      <h2>Not sure which property is right for you?</h2>
+      <p>Our team is happy to help you find the best fit for your stay, dates, and budget.</p>
+      <a href="#" class="btn-light" onclick="showPage('contact')">Get in Touch</a>
+    </div>
+  </div>
+
+</div><!-- /page-properties -->
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PROPERTY 1 DETAIL
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-property1">
+  <div style="padding-top:4.5rem">
+    <div class="prop-detail-header">
+      <div class="prop-detail-img">
+        <div class="img-label">The Linden Suite</div>
+      </div>
+      <div class="prop-detail-sidebar">
+        <div class="prop-location">City Centre · 1 Bedroom</div>
+        <h1>The Linden Suite</h1>
+        <p>A light-filled, beautifully appointed one-bedroom apartment in the heart of the city. Ideal for professionals, couples, and solo travellers who want space, comfort, and convenience — all in one place.</p>
+        <div class="prop-amenities">
+          <span>King-size bed</span>
+          <span>Full kitchen</span>
+          <span>Superfast Wi-Fi</span>
+          <span>Smart TV</span>
+          <span>Washing machine</span>
+          <span>Private bathroom</span>
+          <span>Hotel-grade linen</span>
+          <span>Flexible check-in</span>
+        </div>
+        <div class="detail-price">from £85 <small>per night</small></div>
+        <br>
+        <a href="#" class="btn-primary" onclick="showPage('contact')">Enquire / Book</a>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="split" style="gap:4rem">
+        <div>
+          <div class="eyebrow">About This Property</div>
+          <h2 style="font-size:2rem">Space to breathe, right in the city</h2>
+          <div class="rule"></div>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The Linden Suite sits in a sought-after central location with easy access to transport links, restaurants, and local amenities. Inside, you'll find a carefully designed space that blends warmth and practicality.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The bedroom features a king-size bed with premium linen, while the open-plan living and dining area gives you room to work, relax, and unwind. The kitchen is fully stocked so you can cook in on those evenings you'd rather stay home.</p>
+          <p style="color:var(--mid);line-height:1.8">Minimum stay: 2 nights. Weekly and monthly discounts available.</p>
+        </div>
+        <div>
+          <div class="booking-card">
+            <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:1.5rem">Check Availability</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Check-in</label>
+                <input type="date">
+              </div>
+              <div class="form-group">
+                <label>Check-out</label>
+                <input type="date">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Guests</label>
+              <select><option>1 Guest</option><option>2 Guests</option></select>
+            </div>
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" placeholder="Full name">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" placeholder="+44">
+            </div>
+            <button class="btn-full" onclick="alert('Thank you! We will be in touch within 24 hours.')">Send Enquiry</button>
+            <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">We'll confirm availability within 24 hours</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div style="text-align:center;padding:1rem 0 4rem">
+    <a href="#" class="btn-primary" onclick="showPage('properties')" style="font-size:0.72rem">← Back to All Properties</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PROPERTY 2 DETAIL
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-property2">
+  <div style="padding-top:4.5rem">
+    <div class="prop-detail-header">
+      <div class="prop-detail-img" style="background:linear-gradient(135deg, #C4B8A8 0%, #96897B 100%)">
+        <div class="img-label">The Ashwood</div>
+      </div>
+      <div class="prop-detail-sidebar">
+        <div class="prop-location">Suburban Retreat · 2 Bedrooms</div>
+        <h1>The Ashwood Apartment</h1>
+        <p>A spacious two-bedroom property with a private garden, off-road parking, and all the space a family or group could need. Ideal for longer stays and corporate relocations.</p>
+        <div class="prop-amenities">
+          <span>2 double bedrooms</span>
+          <span>Private garden</span>
+          <span>Full kitchen</span>
+          <span>Off-road parking</span>
+          <span>2 bathrooms</span>
+          <span>Washing machine</span>
+          <span>Smart TVs</span>
+          <span>Superfast Wi-Fi</span>
+        </div>
+        <div class="detail-price">from £120 <small>per night</small></div>
+        <br>
+        <a href="#" class="btn-primary" onclick="showPage('contact')">Enquire / Book</a>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="split" style="gap:4rem">
+        <div>
+          <div class="eyebrow">About This Property</div>
+          <h2 style="font-size:2rem">Room to spread out and settle in</h2>
+          <div class="rule"></div>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The Ashwood Apartment is our largest property — a proper house with two bedrooms, two bathrooms, a fully equipped kitchen, and a private garden that makes all the difference on a longer stay.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">Popular with families, contractors, and professionals on extended projects. The off-road parking removes the hassle, and the generous living space means everyone has room to breathe.</p>
+          <p style="color:var(--mid);line-height:1.8">Minimum stay: 3 nights. Long-stay rates available — contact us for details.</p>
+        </div>
+        <div>
+          <div class="booking-card">
+            <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:1.5rem">Check Availability</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Check-in</label>
+                <input type="date">
+              </div>
+              <div class="form-group">
+                <label>Check-out</label>
+                <input type="date">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Guests</label>
+              <select><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option></select>
+            </div>
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" placeholder="Full name">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" placeholder="+44">
+            </div>
+            <button class="btn-full" onclick="alert('Thank you! We will be in touch within 24 hours.')">Send Enquiry</button>
+            <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">We'll confirm availability within 24 hours</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div style="text-align:center;padding:1rem 0 4rem">
+    <a href="#" class="btn-primary" onclick="showPage('properties')" style="font-size:0.72rem">← Back to All Properties</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PROPERTY 3 DETAIL
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-property3">
+  <div style="padding-top:4.5rem">
+    <div class="prop-detail-header">
+      <div class="prop-detail-img" style="background:linear-gradient(135deg, #B8C0C4 0%, #8096A0 100%)">
+        <div class="img-label">The Creston</div>
+      </div>
+      <div class="prop-detail-sidebar">
+        <div class="prop-location">Business Quarter · Studio</div>
+        <h1>The Creston Studio</h1>
+        <p>A compact, cleverly designed studio for the solo traveller who values efficiency, comfort, and a professional setup. Everything you need, nothing you don't.</p>
+        <div class="prop-amenities">
+          <span>Double bed</span>
+          <span>Dedicated desk</span>
+          <span>Superfast Wi-Fi</span>
+          <span>Smart TV</span>
+          <span>Kitchenette</span>
+          <span>En-suite bathroom</span>
+          <span>Keyless entry</span>
+          <span>Luggage storage</span>
+        </div>
+        <div class="detail-price">from £65 <small>per night</small></div>
+        <br>
+        <a href="#" class="btn-primary" onclick="showPage('contact')">Enquire / Book</a>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="split" style="gap:4rem">
+        <div>
+          <div class="eyebrow">About This Property</div>
+          <h2 style="font-size:2rem">Designed for the modern professional</h2>
+          <div class="rule"></div>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">Located in the business quarter, The Creston Studio is built around the needs of the solo traveller on a work trip. Keyless entry means you can arrive at any time, and the dedicated workspace means you can get straight to it.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">Despite being a studio, it's a proper space — not a box. There's a well-sized double bed, a full en-suite, a kitchenette for self-catering, and a smart TV for when the work is done.</p>
+          <p style="color:var(--mid);line-height:1.8">Minimum stay: 1 night. Weekly discounts available.</p>
+        </div>
+        <div>
+          <div class="booking-card">
+            <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:1.5rem">Check Availability</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Check-in</label>
+                <input type="date">
+              </div>
+              <div class="form-group">
+                <label>Check-out</label>
+                <input type="date">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Guests</label>
+              <select><option>1 Guest</option></select>
+            </div>
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" placeholder="Full name">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" placeholder="+44">
+            </div>
+            <button class="btn-full" onclick="alert('Thank you! We will be in touch within 24 hours.')">Send Enquiry</button>
+            <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">We'll confirm availability within 24 hours</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div style="text-align:center;padding:1rem 0 4rem">
+    <a href="#" class="btn-primary" onclick="showPage('properties')" style="font-size:0.72rem">← Back to All Properties</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     ABOUT PAGE
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-about">
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow" style="justify-content:center">Our Story</div>
+      <h1>About BJH Living</h1>
+      <p>We believe a short-term let should feel like a real home — not just somewhere to sleep. Here's the story behind how we're making that happen.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div class="split-img-box">
+          <div class="split-img-inner">
+            <div class="img-label">BJH Living</div>
+          </div>
+        </div>
+        <div class="split-content">
+          <div class="eyebrow">Who We Are</div>
+          <h2>Built on hospitality, driven by standards</h2>
+          <div class="rule"></div>
+          <p>BJH Living started with a straightforward goal: to create serviced accommodation that guests actually look forward to staying in. Not just a clean room and a Wi-Fi code — but a space that feels considered, personal, and genuinely welcoming.</p>
+          <p>Our properties are personally managed by a small, dedicated team who care deeply about every detail — from the quality of the linen to how easy it is to find the property on arrival. We don't outsource the things that matter.</p>
+          <p>As we grow our portfolio, that same personal attention will carry through everything we do.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="text-center mb-3">
+        <div class="eyebrow" style="justify-content:center">Our Values</div>
+        <h2>What drives us</h2>
+      </div>
+      <div class="values-grid">
+
+        <!-- 01 Home -->
+        <div class="value-card">
+          <div class="value-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 11.5L13 3L23 11.5V22.5C23 23.05 22.55 23.5 22 23.5H17V17.5H9V23.5H4C3.45 23.5 3 23.05 3 22.5V11.5Z" stroke="#111111" stroke-width="1.3" stroke-linejoin="round"/>
+              <path d="M9 23.5V17.5H17V23.5" stroke="#111111" stroke-width="1.3" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="value-title">A real sense of home</div>
+          <div class="value-text">Every property is furnished and equipped as if someone who genuinely cares about design and comfort lives there. Because they do.</div>
+        </div>
+
+        <!-- 02 Cleanliness -->
+        <div class="value-card">
+          <div class="value-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="13" cy="13" r="9.5" stroke="#111111" stroke-width="1.3"/>
+              <polyline points="8.5,13.5 11.5,16.5 17.5,10.5" stroke="#111111" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M13 3.5V2M13 24V22.5M22.5 13H24M2 13H3.5" stroke="#111111" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="value-title">Uncompromising cleanliness</div>
+          <div class="value-text">Every property is professionally cleaned and inspected before each arrival. We hold ourselves to a standard that speaks for itself.</div>
+        </div>
+
+        <!-- 03 Communication -->
+        <div class="value-card">
+          <div class="value-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 5.5H22C22.55 5.5 23 5.95 23 6.5V17.5C23 18.05 22.55 18.5 22 18.5H8L3 22.5V6.5C3 5.95 3.45 5.5 4 5.5Z" stroke="#111111" stroke-width="1.3" stroke-linejoin="round"/>
+              <line x1="8" y1="10.5" x2="18" y2="10.5" stroke="#111111" stroke-width="1.3" stroke-linecap="round"/>
+              <line x1="8" y1="14" x2="14" y2="14" stroke="#111111" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="value-title">Honest communication</div>
+          <div class="value-text">We tell you exactly what to expect before you arrive, and we're on hand throughout your stay. No surprises. Just straightforward, friendly service.</div>
+        </div>
+
+        <!-- 04 Improvement -->
+        <div class="value-card">
+          <div class="value-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="3,20 9,13 13,16 19,9 23,12" stroke="#111111" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="19,9 23,9 23,13" stroke="#111111" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="3" y1="22.5" x2="23" y2="22.5" stroke="#111111" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="value-title">Continuous improvement</div>
+          <div class="value-text">We read every review and take every piece of feedback seriously. There's always a way to do things better — and we're always looking for it.</div>
+        </div>
+
+        <!-- 05 Growth -->
+        <div class="value-card">
+          <div class="value-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 22.5C13 22.5 5 17.5 5 11C5 7.13 8.13 4 12 4C14.2 4 16.1 5.02 17.33 6.62" stroke="#111111" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M13 22.5C13 22.5 21 17.5 21 11C21 8.9 20.13 7 18.67 5.67" stroke="#111111" stroke-width="1.3" stroke-linecap="round"/>
+              <line x1="13" y1="4" x2="13" y2="22.5" stroke="#111111" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M8 9C8 9 10 10.5 13 10.5S18 9 18 9" stroke="#111111" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M7 14C7 14 9.5 15.5 13 15.5S19 14 19 14" stroke="#111111" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="value-title">Sustainable growth</div>
+          <div class="value-text">We're growing our portfolio carefully — quality over quantity. Every new property we add meets the same exacting standard as those before it.</div>
+        </div>
+
+        <!-- 06 Corporate -->
+        <div class="value-card">
+          <div class="value-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="11" width="20" height="12" rx="0.5" stroke="#111111" stroke-width="1.3"/>
+              <path d="M9 11V8C9 6.34 10.34 5 12 5H14C15.66 5 17 6.34 17 8V11" stroke="#111111" stroke-width="1.3" stroke-linejoin="round"/>
+              <line x1="3" y1="17" x2="23" y2="17" stroke="#111111" stroke-width="1.3"/>
+              <line x1="11" y1="17" x2="11" y2="19" stroke="#111111" stroke-width="1.3" stroke-linecap="round"/>
+              <line x1="15" y1="17" x2="15" y2="19" stroke="#111111" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="value-title">Corporate-ready</div>
+          <div class="value-text">We understand what businesses and contractors need. Invoicing, compliance, and professional communication — all handled without you having to chase us.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="container text-center">
+      <h2>Ready to experience BJH Living?</h2>
+      <p>Browse our properties or get in touch — we're always happy to help.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <a href="#" class="btn-light" onclick="showPage('properties')">Our Properties</a>
+        <a href="#" class="btn-light" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.6)" onclick="showPage('contact')">Contact Us</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-about -->
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PROPERTY OWNERS PAGE
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-owners">
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow" style="justify-content:center">For Landlords</div>
+      <h1>Let Your Property</h1>
+      <p>Partner with BJH Living and let us manage your property to the highest standard — while you earn more without the hassle.</p>
+    </div>
+  </div>
+
+  <div class="owners-split" style="margin-top:0">
+    <div class="owners-img">
+      <div class="img-label" style="color:rgba(17,17,17,0.2)">Your Property, Our Care</div>
+    </div>
+    <div class="owners-content">
+      <div class="eyebrow">Why Partner With Us</div>
+      <h2>More income. Less stress.</h2>
+      <p>Serviced accommodation typically generates significantly higher returns than a traditional long-term let — and with BJH Living managing everything end to end, you can enjoy those returns without the day-to-day headaches.</p>
+      <p>We handle everything from guest communications and bookings to cleaning, maintenance coordination, and compliance. Your property is treated with the same care and attention as if it were our own.</p>
+      <ul class="benefits-list">
+        <li>Higher income than standard rental</li>
+        <li>Full end-to-end management service</li>
+        <li>Professional photography and listing management</li>
+        <li>Regular property inspections and reporting</li>
+        <li>Fast maintenance response</li>
+        <li>Transparent monthly statements</li>
+        <li>No void periods — we actively market your property</li>
+      </ul>
+      <a href="#" class="btn-primary" onclick="showPage('contact')">Get a Free Property Assessment</a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-3">
+        <div class="eyebrow" style="justify-content:center">How It Works</div>
+        <h2>Simple from day one</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-num">01</div>
+          <div class="why-title">Free consultation</div>
+          <div class="why-text">We'll discuss your property, your goals, and whether serviced accommodation is the right fit — with no obligation and no jargon.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">02</div>
+          <div class="why-title">We prepare everything</div>
+          <div class="why-text">Our team handles the setup, photography, compliance checks, and listing creation. We do the legwork so you don't have to.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">03</div>
+          <div class="why-title">Guests arrive</div>
+          <div class="why-text">We manage all guest communications, check-ins, and on-stay queries. You're never bothered with the day-to-day.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">04</div>
+          <div class="why-title">You get paid</div>
+          <div class="why-text">Monthly statements and transparent payments — you always know exactly what your property has earned and what's been spent.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="container text-center">
+      <h2>Curious what your property could earn?</h2>
+      <p>Get in touch for a free, no-obligation assessment. We'll give you an honest picture of the opportunity.</p>
+      <a href="#" class="btn-light" onclick="showPage('contact')">Book a Free Consultation</a>
+    </div>
+  </div>
+
+</div><!-- /page-owners -->
+
+
+<!-- ═══════════════════════════════════════════════════════
+     CONTACT PAGE
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow" style="justify-content:center">Get In Touch</div>
+      <h1>Contact Us</h1>
+      <p>Whether you want to book a stay, ask a question, or find out about property management — we'd love to hear from you.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="eyebrow">Our Details</div>
+          <h3>We're here to help</h3>
+          <p>Get in touch via the form, or reach out to us directly using any of the details below. We aim to respond to all enquiries within 24 hours.</p>
+          <div class="contact-details">
+            <div class="contact-detail">
+              <div class="contact-detail-icon">📧</div>
+              <div class="contact-detail-text">
+                <strong>Email</strong>
+                <span>hello@bjhliving.co.uk</span>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">📞</div>
+              <div class="contact-detail-text">
+                <strong>Phone</strong>
+                <span>+44 (0) 7XXX XXXXXX</span>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">🕐</div>
+              <div class="contact-detail-text">
+                <strong>Response Time</strong>
+                <span>Within 24 hours, 7 days a week</span>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">📍</div>
+              <div class="contact-detail-text">
+                <strong>Serving</strong>
+                <span>Across the UK</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:3rem;padding:2rem;background:var(--cream)">
+            <div class="eyebrow">Also find us on</div>
+            <div style="display:flex;gap:1.5rem;margin-top:0.5rem">
+              <a href="#" style="font-size:0.8rem;color:var(--mid);border-bottom:1px solid var(--rule)">Airbnb</a>
+              <a href="#" style="font-size:0.8rem;color:var(--mid);border-bottom:1px solid var(--rule)">Booking.com</a>
+              <a href="#" style="font-size:0.8rem;color:var(--mid);border-bottom:1px solid var(--rule)">Instagram</a>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="booking-card" style="position:static">
+            <h3 style="font-family:var(--display);font-size:1.6rem;margin-bottom:0.5rem">Send us a message</h3>
+            <p style="font-size:0.83rem;color:var(--mid);margin-bottom:1.5rem">Fill in the form below and we'll get back to you as soon as possible.</p>
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" placeholder="Full name">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="your@email.com">
+              </div>
+              <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" placeholder="+44">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>What's this about?</label>
+              <select>
+                <option>Booking a stay</option>
+                <option>Availability enquiry</option>
+                <option>Property management</option>
+                <option>Corporate rates</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea placeholder="Tell us more about what you're looking for..."></textarea>
+            </div>
+            <button class="btn-full" onclick="alert('Thank you for your message! We\'ll be in touch within 24 hours.')">Send Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-contact -->
+
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER (shared)
+═══════════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">BJH</div>
+        <div class="footer-brand-sub">Living</div>
+        <p class="footer-about">Premium serviced accommodation across the UK. Professionally managed, beautifully presented, and designed to feel like home from the moment you arrive.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Properties</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('property1')">The Linden Suite</a></li>
+          <li><a href="#" onclick="showPage('property2')">The Ashwood Apartment</a></li>
+          <li><a href="#" onclick="showPage('property3')">The Creston Studio</a></li>
+          <li><a href="#" onclick="showPage('properties')">All Properties</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('about')">About Us</a></li>
+          <li><a href="#" onclick="showPage('owners')">Property Owners</a></li>
+          <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@bjhliving.co.uk">hello@bjhliving.co.uk</a></li>
+          <li><a href="tel:+447000000000">+44 (0) 7XXX XXXXXX</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Airbnb</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 BJH Living. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  function showPage(name) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // Show target
+    const target = document.getElementById('page-' + name);
+    if (target) target.classList.add('active');
+    // Update nav
+    document.querySelectorAll('.nav-links a[id^="nav-"]').forEach(a => a.classList.remove('active'));
+    const navEl = document.getElementById('nav-' + name);
+    if (navEl) navEl.classList.add('active');
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+</script>
 </body>
 </html>
