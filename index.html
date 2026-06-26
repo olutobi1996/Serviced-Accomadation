@@ -154,9 +154,10 @@
     padding: 1.75rem 0;
   }
   .trust-bar .container { display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
-  .trust-item { display: flex; align-items: center; gap: 0.75rem; }
-  .trust-icon { font-size: 1.1rem; opacity: 0.5; }
-  .trust-text { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); }
+  .trust-item { display: flex; align-items: center; gap: 0.6rem; }
+  .trust-icon-svg { display: flex; align-items: center; flex-shrink: 0; }
+  .trust-divider { width: 1px; height: 1.5rem; background: var(--rule); flex-shrink: 0; }
+  .trust-text { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); white-space: nowrap; }
 
   /* ─── INTRO SPLIT ────────────────────────────────────── */
   .split { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
@@ -481,7 +482,7 @@
     <div class="hero-text">
       <div class="eyebrow">Serviced Accommodation</div>
       <h1>Where<br>comfort<br><em>meets home</em></h1>
-      <p>Premium serviced apartments designed for modern living. Whether you're here for business, relocation, or a longer escape — BJH Living is your home away from home.</p>
+      <p>Premium serviced apartments in the heart of Manchester city centre. Whether you're here for business, relocation, or an extended city stay — BJH Living is your home away from home.</p>
       <div class="hero-actions">
         <a href="#" class="btn-primary" onclick="showPage('properties')">View Properties</a>
         <a href="#" class="btn-primary" style="border-color:var(--accent);color:var(--accent)" onclick="showPage('contact')">Enquire Now</a>
@@ -501,11 +502,63 @@
   <!-- Trust Bar -->
   <div class="trust-bar">
     <div class="container">
-      <div class="trust-item"><span class="trust-icon">⭐</span><span class="trust-text">5-Star Rated Stays</span></div>
-      <div class="trust-item"><span class="trust-icon">🔑</span><span class="trust-text">Flexible Check-in</span></div>
-      <div class="trust-item"><span class="trust-icon">🏡</span><span class="trust-text">3 Premium Properties</span></div>
-      <div class="trust-item"><span class="trust-icon">📞</span><span class="trust-text">Dedicated Guest Support</span></div>
-      <div class="trust-item"><span class="trust-icon">✓</span><span class="trust-text">Best Direct Rates</span></div>
+
+      <div class="trust-item">
+        <span class="trust-icon-svg">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 1.5L11.09 6.26L16.5 6.93L12.75 10.51L13.71 15.9L9 13.27L4.29 15.9L5.25 10.51L1.5 6.93L6.91 6.26L9 1.5Z" stroke="#8C7B6B" stroke-width="1.1" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="trust-text">5-Star Rated Stays</span>
+      </div>
+
+      <span class="trust-divider"></span>
+
+      <div class="trust-item">
+        <span class="trust-icon-svg">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2.5" y="7" width="13" height="9.5" rx="0.4" stroke="#8C7B6B" stroke-width="1.1"/>
+            <path d="M6 7V5C6 3.34 7.34 2 9 2C10.66 2 12 3.34 12 5V7" stroke="#8C7B6B" stroke-width="1.1" stroke-linecap="round"/>
+            <circle cx="9" cy="11.5" r="1.5" stroke="#8C7B6B" stroke-width="1.1"/>
+          </svg>
+        </span>
+        <span class="trust-text">Keyless Flexible Check-in</span>
+      </div>
+
+      <span class="trust-divider"></span>
+
+      <div class="trust-item">
+        <span class="trust-icon-svg">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 8.5L9 2L16 8.5V15.5C16 15.78 15.78 16 15.5 16H12V11.5H6V16H2.5C2.22 16 2 15.78 2 15.5V8.5Z" stroke="#8C7B6B" stroke-width="1.1" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="trust-text">3 Premium Manchester Properties</span>
+      </div>
+
+      <span class="trust-divider"></span>
+
+      <div class="trust-item">
+        <span class="trust-icon-svg">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 1.5C5.96 1.5 3.5 3.96 3.5 7C3.5 10.5 9 16.5 9 16.5C9 16.5 14.5 10.5 14.5 7C14.5 3.96 12.04 1.5 9 1.5Z" stroke="#8C7B6B" stroke-width="1.1"/>
+            <circle cx="9" cy="7" r="1.8" stroke="#8C7B6B" stroke-width="1.1"/>
+          </svg>
+        </span>
+        <span class="trust-text">Manchester City Centre Locations</span>
+      </div>
+
+      <span class="trust-divider"></span>
+
+      <div class="trust-item">
+        <span class="trust-icon-svg">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="2.5,9 7,13.5 15.5,5" stroke="#8C7B6B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="trust-text">Best Rate — Book Direct</span>
+      </div>
+
     </div>
   </div>
 
@@ -546,19 +599,19 @@
         <div class="prop-card">
           <div class="prop-img">
             <div class="prop-img-inner p1"><span class="prop-num">01</span></div>
-            <div class="prop-badge">Available</div>
+            <div class="prop-badge">★ 5.0 · 3 Reviews</div>
           </div>
           <div class="prop-body">
-            <div class="prop-location">City Centre</div>
-            <div class="prop-name">The Linden Suite</div>
-            <div class="prop-desc">A light-filled one-bedroom apartment with a fully equipped kitchen, king-size bed, and fast Wi-Fi — ideal for professionals and couples.</div>
+            <div class="prop-location">Manchester City Centre · Northern Quarter</div>
+            <div class="prop-name">The Duplex with Pool</div>
+            <div class="prop-desc">Stunning brick-loft duplex with pool table, free gym, 500mbps Wi-Fi, and a dedicated workspace. Steps from Victoria Station and the Printworks.</div>
             <div class="prop-meta">
-              <span><strong>1</strong> Bed</span>
-              <span><strong>1</strong> Bath</span>
-              <span><strong>2</strong> Guests</span>
+              <span><strong>2</strong> Beds</span>
+              <span><strong>2</strong> Baths</span>
+              <span><strong>5</strong> Guests</span>
             </div>
             <div class="prop-footer">
-              <div class="prop-price">from £85 <small>/ night</small></div>
+              <div class="prop-price">POA <small>/ contact us</small></div>
               <a href="#" class="prop-link" onclick="showPage('property1')">View Details</a>
             </div>
           </div>
@@ -568,19 +621,19 @@
         <div class="prop-card">
           <div class="prop-img">
             <div class="prop-img-inner p2"><span class="prop-num">02</span></div>
-            <div class="prop-badge">Available</div>
+            <div class="prop-badge">★ 5.0 · 4 Reviews</div>
           </div>
           <div class="prop-body">
-            <div class="prop-location">Suburban Retreat</div>
-            <div class="prop-name">The Ashwood Apartment</div>
-            <div class="prop-desc">A spacious two-bedroom home with a private garden, modern kitchen, and off-road parking — perfect for families or longer corporate stays.</div>
+            <div class="prop-location">Manchester City Centre · Northern Quarter</div>
+            <div class="prop-name">The Duplex Loft</div>
+            <div class="prop-desc">Stylish brick-loft duplex with two double bedrooms, dedicated workspace, free gym access, and Nespresso — in the heart of Manchester.</div>
             <div class="prop-meta">
               <span><strong>2</strong> Beds</span>
-              <span><strong>2</strong> Baths</span>
-              <span><strong>4</strong> Guests</span>
+              <span><strong>1</strong> Bath</span>
+              <span><strong>5</strong> Guests</span>
             </div>
             <div class="prop-footer">
-              <div class="prop-price">from £120 <small>/ night</small></div>
+              <div class="prop-price">POA <small>/ contact us</small></div>
               <a href="#" class="prop-link" onclick="showPage('property2')">View Details</a>
             </div>
           </div>
@@ -590,19 +643,19 @@
         <div class="prop-card">
           <div class="prop-img">
             <div class="prop-img-inner p3"><span class="prop-num">03</span></div>
-            <div class="prop-badge">Available</div>
+            <div class="prop-badge">New Listing</div>
           </div>
           <div class="prop-body">
-            <div class="prop-location">Business Quarter</div>
-            <div class="prop-name">The Creston Studio</div>
-            <div class="prop-desc">A sleek, fully self-contained studio designed for the solo business traveller — with a dedicated workspace, smart TV, and express check-in.</div>
+            <div class="prop-location">Manchester City Centre · Northern Quarter</div>
+            <div class="prop-name">The City Apartment</div>
+            <div class="prop-desc">Modern 2-bed apartment with two bathrooms, adjustable workspace, free gym, and Nespresso. Perfect for families, contractors, and professionals.</div>
             <div class="prop-meta">
-              <span><strong>Studio</strong></span>
-              <span><strong>1</strong> Bath</span>
-              <span><strong>1</strong> Guest</span>
+              <span><strong>2</strong> Beds</span>
+              <span><strong>2</strong> Baths</span>
+              <span><strong>4</strong> Guests</span>
             </div>
             <div class="prop-footer">
-              <div class="prop-price">from £65 <small>/ night</small></div>
+              <div class="prop-price">POA <small>/ contact us</small></div>
               <a href="#" class="prop-link" onclick="showPage('property3')">View Details</a>
             </div>
           </div>
@@ -772,18 +825,18 @@
       <div class="reviews-grid">
         <div class="review-card">
           <div class="stars">★★★★★</div>
-          <div class="review-text">"Absolutely spotless, beautifully decorated, and the team were so helpful throughout. Felt like a proper home — not just a rental."</div>
-          <div class="review-author">Sarah M. — Business Traveller</div>
+          <div class="review-text">"Wonderful place! Very spacious and in a really great location for exploring the city or seeing a show. The flat is in a beautiful building with great amenities. Bryce was super quick with communicating and very accommodating!"</div>
+          <div class="review-author">Michael — Guest · The Duplex with Pool</div>
         </div>
         <div class="review-card">
           <div class="stars">★★★★★</div>
-          <div class="review-text">"We stayed for six weeks during a work relocation and couldn't have been happier. The kitchen was fully equipped, beds were amazing, and check-in was effortless."</div>
-          <div class="review-author">James T. — Corporate Relocation</div>
+          <div class="review-text">"Me and my friends absolutely loved our stay! The apartment was beautifully maintained, spotless and in a super convenient location. Everything looked new and was exactly as pictured. Bryce was incredibly responsive — highly recommend!"</div>
+          <div class="review-author">Natalie — Guest · The Duplex Loft</div>
         </div>
         <div class="review-card">
           <div class="stars">★★★★★</div>
-          <div class="review-text">"Better than any hotel we've used. The space, the quality, the value — everything was excellent. Will absolutely book again on our next project."</div>
-          <div class="review-author">Rachel & Dan — Extended Stay</div>
+          <div class="review-text">"Bryce's flat is very nice for enjoying your stay in Manchester. Bryce is a responsive and accommodating host. I would stay again without hesitation."</div>
+          <div class="review-author">Ludovic — Guest · The Duplex with Pool</div>
         </div>
       </div>
     </div>
@@ -825,19 +878,19 @@
         <div class="prop-card">
           <div class="prop-img">
             <div class="prop-img-inner p1"><span class="prop-num">01</span></div>
-            <div class="prop-badge">Available</div>
+            <div class="prop-badge">★ 5.0 · 3 Reviews</div>
           </div>
           <div class="prop-body">
-            <div class="prop-location">City Centre</div>
-            <div class="prop-name">The Linden Suite</div>
-            <div class="prop-desc">A light-filled one-bedroom apartment with a fully equipped kitchen, king-size bed, and fast Wi-Fi — ideal for professionals and couples.</div>
+            <div class="prop-location">Manchester City Centre · Northern Quarter</div>
+            <div class="prop-name">The Duplex with Pool</div>
+            <div class="prop-desc">Stunning brick-loft duplex with pool table, free gym, 500mbps Wi-Fi, and a dedicated workspace. Steps from Victoria Station and the Printworks.</div>
             <div class="prop-meta">
-              <span><strong>1</strong> Bed</span>
-              <span><strong>1</strong> Bath</span>
-              <span><strong>2</strong> Guests</span>
+              <span><strong>2</strong> Beds</span>
+              <span><strong>2</strong> Baths</span>
+              <span><strong>5</strong> Guests</span>
             </div>
             <div class="prop-footer">
-              <div class="prop-price">from £85 <small>/ night</small></div>
+              <div class="prop-price">POA <small>/ contact us</small></div>
               <a href="#" class="prop-link" onclick="showPage('property1')">View Details</a>
             </div>
           </div>
@@ -846,19 +899,19 @@
         <div class="prop-card">
           <div class="prop-img">
             <div class="prop-img-inner p2"><span class="prop-num">02</span></div>
-            <div class="prop-badge">Available</div>
+            <div class="prop-badge">★ 5.0 · 4 Reviews</div>
           </div>
           <div class="prop-body">
-            <div class="prop-location">Suburban Retreat</div>
-            <div class="prop-name">The Ashwood Apartment</div>
-            <div class="prop-desc">A spacious two-bedroom home with a private garden, modern kitchen, and off-road parking — perfect for families or longer corporate stays.</div>
+            <div class="prop-location">Manchester City Centre · Northern Quarter</div>
+            <div class="prop-name">The Duplex Loft</div>
+            <div class="prop-desc">Stylish brick-loft duplex with two double bedrooms, dedicated workspace, free gym access, and Nespresso — in the heart of Manchester.</div>
             <div class="prop-meta">
               <span><strong>2</strong> Beds</span>
-              <span><strong>2</strong> Baths</span>
-              <span><strong>4</strong> Guests</span>
+              <span><strong>1</strong> Bath</span>
+              <span><strong>5</strong> Guests</span>
             </div>
             <div class="prop-footer">
-              <div class="prop-price">from £120 <small>/ night</small></div>
+              <div class="prop-price">POA <small>/ contact us</small></div>
               <a href="#" class="prop-link" onclick="showPage('property2')">View Details</a>
             </div>
           </div>
@@ -867,19 +920,19 @@
         <div class="prop-card">
           <div class="prop-img">
             <div class="prop-img-inner p3"><span class="prop-num">03</span></div>
-            <div class="prop-badge">Available</div>
+            <div class="prop-badge">New Listing</div>
           </div>
           <div class="prop-body">
-            <div class="prop-location">Business Quarter</div>
-            <div class="prop-name">The Creston Studio</div>
-            <div class="prop-desc">A sleek, fully self-contained studio designed for the solo business traveller — with a dedicated workspace, smart TV, and express check-in.</div>
+            <div class="prop-location">Manchester City Centre · Northern Quarter</div>
+            <div class="prop-name">The City Apartment</div>
+            <div class="prop-desc">Modern 2-bed apartment with two bathrooms, adjustable workspace, free gym, and Nespresso. Perfect for families, contractors, and professionals.</div>
             <div class="prop-meta">
-              <span><strong>Studio</strong></span>
-              <span><strong>1</strong> Bath</span>
-              <span><strong>1</strong> Guest</span>
+              <span><strong>2</strong> Beds</span>
+              <span><strong>2</strong> Baths</span>
+              <span><strong>4</strong> Guests</span>
             </div>
             <div class="prop-footer">
-              <div class="prop-price">from £65 <small>/ night</small></div>
+              <div class="prop-price">POA <small>/ contact us</small></div>
               <a href="#" class="prop-link" onclick="showPage('property3')">View Details</a>
             </div>
           </div>
@@ -907,23 +960,27 @@
   <div style="padding-top:4.5rem">
     <div class="prop-detail-header">
       <div class="prop-detail-img">
-        <div class="img-label">The Linden Suite</div>
+        <div class="img-label" style="font-size:5rem;color:rgba(255,255,255,0.12);text-align:center;padding:2rem">The Duplex<br>with Pool</div>
       </div>
       <div class="prop-detail-sidebar">
-        <div class="prop-location">City Centre · 1 Bedroom</div>
-        <h1>The Linden Suite</h1>
-        <p>A light-filled, beautifully appointed one-bedroom apartment in the heart of the city. Ideal for professionals, couples, and solo travellers who want space, comfort, and convenience — all in one place.</p>
+        <div class="prop-location">Manchester City Centre &nbsp;·&nbsp; 2 Bed / 2 Bath &nbsp;·&nbsp; ★ 5.0 (3 reviews)</div>
+        <h1>The Duplex with Pool</h1>
+        <p>A stunning brick-loft duplex in the heart of Manchester city centre. Featuring a pool table, free building gym, 500mbps Wi-Fi, and a dedicated adjustable workspace — all with superb access to the city's best transport, entertainment, and dining.</p>
         <div class="prop-amenities">
-          <span>King-size bed</span>
-          <span>Full kitchen</span>
-          <span>Superfast Wi-Fi</span>
+          <span>Super King bed (Bedroom 1)</span>
+          <span>Double bed (Bedroom 2)</span>
+          <span>Sofa bed in living room</span>
+          <span>2 private bathrooms</span>
+          <span>500mbps Wi-Fi</span>
+          <span>Pool table</span>
+          <span>Free building gym</span>
+          <span>Adjustable workspace</span>
+          <span>Nespresso coffee machine</span>
+          <span>Fully equipped kitchen</span>
           <span>Smart TV</span>
-          <span>Washing machine</span>
-          <span>Private bathroom</span>
-          <span>Hotel-grade linen</span>
-          <span>Flexible check-in</span>
+          <span>Keyless / flexible check-in</span>
         </div>
-        <div class="detail-price">from £85 <small>per night</small></div>
+        <div class="detail-price">Contact Us <small>for pricing &amp; availability</small></div>
         <br>
         <a href="#" class="btn-primary" onclick="showPage('contact')">Enquire / Book</a>
       </div>
@@ -934,15 +991,46 @@
       <div class="split" style="gap:4rem">
         <div>
           <div class="eyebrow">About This Property</div>
-          <h2 style="font-size:2rem">Space to breathe, right in the city</h2>
+          <h2 style="font-size:2rem">Loft living in the city centre</h2>
           <div class="rule"></div>
-          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The Linden Suite sits in a sought-after central location with easy access to transport links, restaurants, and local amenities. Inside, you'll find a carefully designed space that blends warmth and practicality.</p>
-          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The bedroom features a king-size bed with premium linen, while the open-plan living and dining area gives you room to work, relax, and unwind. The kitchen is fully stocked so you can cook in on those evenings you'd rather stay home.</p>
-          <p style="color:var(--mid);line-height:1.8">Minimum stay: 2 nights. Weekly and monthly discounts available.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">This stunning brick-layered duplex apartment is set inside a beautiful quiet residential building, right in the heart of Manchester. The space sleeps up to 5 guests across a super king bedroom, a double bedroom, and a sofa bed in the living area.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The property is packed with premium touches — a pool table, fully equipped kitchen with Nespresso, flat screen smart TV, double-glazed windows, and a dedicated adjustable desk for those working remotely. Guests also have free access to the fully equipped gym within the building.</p>
+
+          <div style="margin:2rem 0; padding:1.5rem; background:var(--cream); border-left:2px solid var(--accent)">
+            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem">What's nearby</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem">
+              <span style="font-size:0.82rem;color:var(--mid)">5 min walk — Victoria Station</span>
+              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Arndale Centre</span>
+              <span style="font-size:0.82rem;color:var(--mid)">8 min walk — AO Arena</span>
+              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Vue Cinema</span>
+              <span style="font-size:0.82rem;color:var(--mid)">Next door — Printworks</span>
+              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Shudehill Tram</span>
+              <span style="font-size:0.82rem;color:var(--mid)">15 min walk — Piccadilly Station</span>
+              <span style="font-size:0.82rem;color:var(--mid)">30 min drive — Peak District</span>
+            </div>
+          </div>
+
+          <div style="margin-bottom:1rem">
+            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:0.75rem">Ideal for</div>
+            <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Long-term Stays</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Contractors</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Business Travellers</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Families &amp; Friends</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Corporate Relocations</span>
+            </div>
+          </div>
+
+          <div style="margin-top:2rem;padding:1.5rem;background:var(--cream)">
+            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem">What guests say</div>
+            <div style="font-family:var(--display);font-size:1rem;font-style:italic;color:var(--ink);line-height:1.6;margin-bottom:0.5rem">"Wonderful place! Very spacious and in a really great location. The flat is in a beautiful building with great amenities. Bryce was super quick with communicating and very accommodating!"</div>
+            <div style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid)">Michael — ★★★★★</div>
+          </div>
         </div>
         <div>
-          <div class="booking-card">
-            <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:1.5rem">Check Availability</h3>
+          <div class="booking-card" style="position:sticky;top:6rem">
+            <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:0.4rem">Book This Property</h3>
+            <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1.5rem">Check-in from 16:00 · Check-out by 11:00 · Max 5 guests</p>
             <div class="form-row">
               <div class="form-group">
                 <label>Check-in</label>
@@ -955,7 +1043,7 @@
             </div>
             <div class="form-group">
               <label>Guests</label>
-              <select><option>1 Guest</option><option>2 Guests</option></select>
+              <select><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5 Guests</option></select>
             </div>
             <div class="form-group">
               <label>Your Name</label>
@@ -969,8 +1057,12 @@
               <label>Phone</label>
               <input type="tel" placeholder="+44">
             </div>
-            <button class="btn-full" onclick="alert('Thank you! We will be in touch within 24 hours.')">Send Enquiry</button>
-            <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">We'll confirm availability within 24 hours</p>
+            <div class="form-group">
+              <label>Message (optional)</label>
+              <textarea placeholder="Long-term stay? Corporate booking? Let us know..."></textarea>
+            </div>
+            <button class="btn-full" onclick="alert('Thank you! We\'ll be in touch within 24 hours.')">Send Enquiry</button>
+            <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">Extended stay discounts available — just ask</p>
           </div>
         </div>
       </div>
@@ -989,23 +1081,27 @@
   <div style="padding-top:4.5rem">
     <div class="prop-detail-header">
       <div class="prop-detail-img" style="background:linear-gradient(135deg, #C4B8A8 0%, #96897B 100%)">
-        <div class="img-label">The Ashwood</div>
+        <div class="img-label" style="font-size:5rem;color:rgba(255,255,255,0.12);text-align:center;padding:2rem">The Duplex<br>Loft</div>
       </div>
       <div class="prop-detail-sidebar">
-        <div class="prop-location">Suburban Retreat · 2 Bedrooms</div>
-        <h1>The Ashwood Apartment</h1>
-        <p>A spacious two-bedroom property with a private garden, off-road parking, and all the space a family or group could need. Ideal for longer stays and corporate relocations.</p>
+        <div class="prop-location">Manchester City Centre &nbsp;·&nbsp; 2 Bed / 1 Bath &nbsp;·&nbsp; ★ 5.0 (4 reviews)</div>
+        <h1>The Duplex Loft</h1>
+        <p>A beautifully designed brick-loft duplex apartment with two double bedrooms, a dedicated workspace, free gym access, and a Nespresso machine — perfectly positioned in Manchester city centre with unbeatable transport links.</p>
         <div class="prop-amenities">
-          <span>2 double bedrooms</span>
-          <span>Private garden</span>
-          <span>Full kitchen</span>
-          <span>Off-road parking</span>
-          <span>2 bathrooms</span>
-          <span>Washing machine</span>
-          <span>Smart TVs</span>
-          <span>Superfast Wi-Fi</span>
+          <span>Double bed (Bedroom 1)</span>
+          <span>Double bed (Bedroom 2)</span>
+          <span>Sofa bed in living room</span>
+          <span>1 private bathroom</span>
+          <span>500mbps Wi-Fi</span>
+          <span>Standing adjustable desk</span>
+          <span>Free building gym</span>
+          <span>Nespresso coffee machine</span>
+          <span>Fully equipped kitchen</span>
+          <span>Smart TV</span>
+          <span>Double glazed windows</span>
+          <span>Keyless / flexible check-in</span>
         </div>
-        <div class="detail-price">from £120 <small>per night</small></div>
+        <div class="detail-price">Contact Us <small>for pricing &amp; availability</small></div>
         <br>
         <a href="#" class="btn-primary" onclick="showPage('contact')">Enquire / Book</a>
       </div>
@@ -1016,15 +1112,161 @@
       <div class="split" style="gap:4rem">
         <div>
           <div class="eyebrow">About This Property</div>
-          <h2 style="font-size:2rem">Room to spread out and settle in</h2>
+          <h2 style="font-size:2rem">The Manchester duplex with 5-star reviews</h2>
           <div class="rule"></div>
-          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The Ashwood Apartment is our largest property — a proper house with two bedrooms, two bathrooms, a fully equipped kitchen, and a private garden that makes all the difference on a longer stay.</p>
-          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">Popular with families, contractors, and professionals on extended projects. The off-road parking removes the hassle, and the generous living space means everyone has room to breathe.</p>
-          <p style="color:var(--mid);line-height:1.8">Minimum stay: 3 nights. Long-stay rates available — contact us for details.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">This stunning loft-style duplex apartment is set inside a beautiful residential building, right in the centre of Manchester. Rated 5.0 across all reviews, with guests consistently praising the location, cleanliness, and check-in experience.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The apartment sleeps up to 5 across two double bedrooms and a sofa bed, and features a dedicated workspace with a standing adjustable desk — ideal for longer work stays and corporate lets. The fully equipped kitchen and Nespresso machine make settling in effortless.</p>
+
+          <div style="margin:2rem 0; padding:1.5rem; background:var(--cream); border-left:2px solid var(--accent)">
+            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem">What's nearby</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem">
+              <span style="font-size:0.82rem;color:var(--mid)">5 min walk — Victoria Station</span>
+              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Arndale Centre</span>
+              <span style="font-size:0.82rem;color:var(--mid)">8 min walk — AO Arena</span>
+              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Vue Cinema</span>
+              <span style="font-size:0.82rem;color:var(--mid)">Next door — Printworks</span>
+              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Shudehill Tram</span>
+              <span style="font-size:0.82rem;color:var(--mid)">15 min walk — Piccadilly Station</span>
+              <span style="font-size:0.82rem;color:var(--mid)">30 min drive — Peak District</span>
+            </div>
+          </div>
+
+          <div style="margin-bottom:1rem">
+            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:0.75rem">Ideal for</div>
+            <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Long-term Stays</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Contractors</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Business Travellers</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Families &amp; Friends</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Corporate Relocations</span>
+            </div>
+          </div>
+
+          <div style="margin-top:2rem;padding:1.5rem;background:var(--cream)">
+            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem">What guests say</div>
+            <div style="font-family:var(--display);font-size:1rem;font-style:italic;color:var(--ink);line-height:1.6;margin-bottom:0.5rem">"The apartment was beautifully maintained, spotless and in a super convenient location. Everything looked new and was exactly as pictured. Bryce was incredibly responsive."</div>
+            <div style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid)">Natalie — ★★★★★</div>
+          </div>
         </div>
         <div>
-          <div class="booking-card">
-            <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:1.5rem">Check Availability</h3>
+          <div class="booking-card" style="position:sticky;top:6rem">
+            <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:0.4rem">Book This Property</h3>
+            <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1.5rem">Check-in from 16:00 · Check-out by 11:00 · Max 5 guests</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Check-in</label>
+                <input type="date">
+              </div>
+              <div class="form-group">
+                <label>Check-out</label>
+                <input type="date">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Guests</label>
+              <select><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5 Guests</option></select>
+            </div>
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" placeholder="Full name">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" placeholder="+44">
+            </div>
+            <div class="form-group">
+              <label>Message (optional)</label>
+              <textarea placeholder="Long-term stay? Corporate booking? Let us know..."></textarea>
+            </div>
+            <button class="btn-full" onclick="alert('Thank you! We\'ll be in touch within 24 hours.')">Send Enquiry</button>
+            <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">Extended stay discounts available — just ask</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div style="text-align:center;padding:1rem 0 4rem">
+    <a href="#" class="btn-primary" onclick="showPage('properties')" style="font-size:0.72rem">← Back to All Properties</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PROPERTY 3 DETAIL
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-property3">
+  <div style="padding-top:4.5rem">
+    <div class="prop-detail-header">
+      <div class="prop-detail-img" style="background:linear-gradient(135deg, #B8C0C4 0%, #8096A0 100%)">
+        <div class="img-label" style="font-size:5rem;color:rgba(255,255,255,0.12);text-align:center;padding:2rem">The City<br>Apartment</div>
+      </div>
+      <div class="prop-detail-sidebar">
+        <div class="prop-location">Manchester City Centre &nbsp;·&nbsp; 2 Bed / 2 Bath &nbsp;·&nbsp; New Listing</div>
+        <h1>The City Apartment</h1>
+        <p>A modern, stylish 2-bedroom apartment in the heart of Manchester. Two bathrooms, a dedicated standing workspace, free gym access, Nespresso, and exceptional host communication — rated 5 stars.</p>
+        <div class="prop-amenities">
+          <span>Double bed (Bedroom 1)</span>
+          <span>2× Single beds (Bedroom 2)</span>
+          <span>2 private bathrooms</span>
+          <span>500mbps Wi-Fi</span>
+          <span>Standing adjustable desk</span>
+          <span>Free building gym</span>
+          <span>Nespresso coffee machine</span>
+          <span>Fully equipped kitchen</span>
+          <span>Smart TV</span>
+          <span>Private balcony</span>
+          <span>Double glazed windows</span>
+          <span>Keyless / flexible check-in</span>
+        </div>
+        <div class="detail-price">Contact Us <small>for pricing &amp; availability</small></div>
+        <br>
+        <a href="#" class="btn-primary" onclick="showPage('contact')">Enquire / Book</a>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="split" style="gap:4rem">
+        <div>
+          <div class="eyebrow">About This Property</div>
+          <h2 style="font-size:2rem">Modern city living, fully equipped</h2>
+          <div class="rule"></div>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The City Apartment is our newest listing — a stylish, modern apartment in the same sought-after Manchester city centre location as our other properties. Featuring two bedrooms and two bathrooms, it offers more space and flexibility than a typical city centre flat.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">Bryce has been rated 5 stars for communication — so from the moment you enquire to the moment you check out, you'll always know exactly where you stand. The dedicated adjustable workspace and free gym make it just as well suited to a work trip as a leisure stay.</p>
+
+          <div style="margin:2rem 0; padding:1.5rem; background:var(--cream); border-left:2px solid var(--accent)">
+            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem">What's nearby</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem">
+              <span style="font-size:0.82rem;color:var(--mid)">5 min walk — Victoria Station</span>
+              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Arndale Centre</span>
+              <span style="font-size:0.82rem;color:var(--mid)">8 min walk — AO Arena</span>
+              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Vue Cinema</span>
+              <span style="font-size:0.82rem;color:var(--mid)">Next door — Printworks</span>
+              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Shudehill Tram</span>
+              <span style="font-size:0.82rem;color:var(--mid)">15 min walk — Piccadilly Station</span>
+              <span style="font-size:0.82rem;color:var(--mid)">30 min drive — Peak District</span>
+            </div>
+          </div>
+
+          <div style="margin-bottom:1rem">
+            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:0.75rem">Ideal for</div>
+            <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Long-term Stays</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Contractors</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Business Travellers</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Families &amp; Friends</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Corporate Relocations</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="booking-card" style="position:sticky;top:6rem">
+            <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:0.4rem">Book This Property</h3>
+            <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1.5rem">Check-in from 16:00 · Check-out by 11:00 · Max 4 guests</p>
             <div class="form-row">
               <div class="form-group">
                 <label>Check-in</label>
@@ -1051,90 +1293,12 @@
               <label>Phone</label>
               <input type="tel" placeholder="+44">
             </div>
-            <button class="btn-full" onclick="alert('Thank you! We will be in touch within 24 hours.')">Send Enquiry</button>
-            <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">We'll confirm availability within 24 hours</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <div style="text-align:center;padding:1rem 0 4rem">
-    <a href="#" class="btn-primary" onclick="showPage('properties')" style="font-size:0.72rem">← Back to All Properties</a>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════════════════
-     PROPERTY 3 DETAIL
-═══════════════════════════════════════════════════════ -->
-<div class="page" id="page-property3">
-  <div style="padding-top:4.5rem">
-    <div class="prop-detail-header">
-      <div class="prop-detail-img" style="background:linear-gradient(135deg, #B8C0C4 0%, #8096A0 100%)">
-        <div class="img-label">The Creston</div>
-      </div>
-      <div class="prop-detail-sidebar">
-        <div class="prop-location">Business Quarter · Studio</div>
-        <h1>The Creston Studio</h1>
-        <p>A compact, cleverly designed studio for the solo traveller who values efficiency, comfort, and a professional setup. Everything you need, nothing you don't.</p>
-        <div class="prop-amenities">
-          <span>Double bed</span>
-          <span>Dedicated desk</span>
-          <span>Superfast Wi-Fi</span>
-          <span>Smart TV</span>
-          <span>Kitchenette</span>
-          <span>En-suite bathroom</span>
-          <span>Keyless entry</span>
-          <span>Luggage storage</span>
-        </div>
-        <div class="detail-price">from £65 <small>per night</small></div>
-        <br>
-        <a href="#" class="btn-primary" onclick="showPage('contact')">Enquire / Book</a>
-      </div>
-    </div>
-  </div>
-  <section class="section">
-    <div class="container">
-      <div class="split" style="gap:4rem">
-        <div>
-          <div class="eyebrow">About This Property</div>
-          <h2 style="font-size:2rem">Designed for the modern professional</h2>
-          <div class="rule"></div>
-          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">Located in the business quarter, The Creston Studio is built around the needs of the solo traveller on a work trip. Keyless entry means you can arrive at any time, and the dedicated workspace means you can get straight to it.</p>
-          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">Despite being a studio, it's a proper space — not a box. There's a well-sized double bed, a full en-suite, a kitchenette for self-catering, and a smart TV for when the work is done.</p>
-          <p style="color:var(--mid);line-height:1.8">Minimum stay: 1 night. Weekly discounts available.</p>
-        </div>
-        <div>
-          <div class="booking-card">
-            <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:1.5rem">Check Availability</h3>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Check-in</label>
-                <input type="date">
-              </div>
-              <div class="form-group">
-                <label>Check-out</label>
-                <input type="date">
-              </div>
-            </div>
             <div class="form-group">
-              <label>Guests</label>
-              <select><option>1 Guest</option></select>
+              <label>Message (optional)</label>
+              <textarea placeholder="Long-term stay? Corporate booking? Let us know..."></textarea>
             </div>
-            <div class="form-group">
-              <label>Your Name</label>
-              <input type="text" placeholder="Full name">
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" placeholder="your@email.com">
-            </div>
-            <div class="form-group">
-              <label>Phone</label>
-              <input type="tel" placeholder="+44">
-            </div>
-            <button class="btn-full" onclick="alert('Thank you! We will be in touch within 24 hours.')">Send Enquiry</button>
-            <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">We'll confirm availability within 24 hours</p>
+            <button class="btn-full" onclick="alert('Thank you! We\'ll be in touch within 24 hours.')">Send Enquiry</button>
+            <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">Extended stay discounts available — just ask</p>
           </div>
         </div>
       </div>
@@ -1478,9 +1642,9 @@
       <div class="footer-col">
         <h4>Properties</h4>
         <ul>
-          <li><a href="#" onclick="showPage('property1')">The Linden Suite</a></li>
-          <li><a href="#" onclick="showPage('property2')">The Ashwood Apartment</a></li>
-          <li><a href="#" onclick="showPage('property3')">The Creston Studio</a></li>
+          <li><a href="#" onclick="showPage('property1')">The Duplex with Pool</a></li>
+          <li><a href="#" onclick="showPage('property2')">The Duplex Loft</a></li>
+          <li><a href="#" onclick="showPage('property3')">The City Apartment</a></li>
           <li><a href="#" onclick="showPage('properties')">All Properties</a></li>
         </ul>
       </div>
