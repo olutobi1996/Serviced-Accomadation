@@ -440,6 +440,92 @@
     .amenities-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
   }
+  /* ---------- Gallery ---------- */
+
+.gallery-wrapper{
+    position:relative;
+    max-width:700px;
+    margin:0 auto;
+}
+
+.gallery{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    gap:1rem;
+
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+}
+
+.gallery::-webkit-scrollbar{
+    display:none;
+}
+
+.gallery img{
+    flex:0 0 100%;
+    aspect-ratio:1 / 1;
+    width:100%;
+    object-fit:cover;
+
+    border-radius:16px;
+    scroll-snap-align:center;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.08);
+}
+
+.gallery-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:46px;
+    height:46px;
+
+    border:none;
+    border-radius:50%;
+    background:rgba(255,255,255,.92);
+    color:var(--ink);
+
+    font-size:1.2rem;
+    cursor:pointer;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+    transition:.25s;
+    z-index:5;
+}
+
+.gallery-btn:hover{
+    background:var(--accent);
+    color:white;
+}
+
+.gallery-btn.prev{
+    left:-20px;
+}
+
+.gallery-btn.next{
+    right:-20px;
+}
+
+@media (max-width:768px){
+
+    .gallery-wrapper{
+        max-width:100%;
+    }
+
+    .gallery-btn{
+        width:40px;
+        height:40px;
+        left:10px;
+    }
+
+    .gallery-btn.next{
+        right:10px;
+        left:auto;
+    }
+
+}
 </style>
 </head>
 <body>
@@ -603,8 +689,8 @@
           </div>
           <div class="prop-body">
             <div class="prop-location">Manchester City Centre · Northern Quarter</div>
-            <div class="prop-name">The Duplex with Pool</div>
-            <div class="prop-desc">Stunning brick-loft duplex with pool table, free gym, 500mbps Wi-Fi, and a dedicated workspace. Steps from Victoria Station and the Printworks.</div>
+            <div class="prop-name">The Duplex Loft</div>
+            <div class="prop-desc">Stylish brick-loft duplex with two double bedrooms, dedicated workspace, free gym access, and Nespresso — in the heart of Manchester.</div>
             <div class="prop-meta">
               <span><strong>2</strong> Beds</span>
               <span><strong>2</strong> Baths</span>
@@ -625,11 +711,11 @@
           </div>
           <div class="prop-body">
             <div class="prop-location">Manchester City Centre · Northern Quarter</div>
-            <div class="prop-name">The Duplex Loft</div>
-            <div class="prop-desc">Stylish brick-loft duplex with two double bedrooms, dedicated workspace, free gym access, and Nespresso — in the heart of Manchester.</div>
+            <div class="prop-name">The City Apartment</div>
+            <div class="prop-desc">Modern 2-bed apartment with two bathrooms, adjustable workspace, free gym, and Netflix-ready Smart TV. Perfect for families, contractors, and professionals.</div>
             <div class="prop-meta">
               <span><strong>2</strong> Beds</span>
-              <span><strong>1</strong> Bath</span>
+              <span><strong>2</strong> Baths</span>
               <span><strong>5</strong> Guests</span>
             </div>
             <div class="prop-footer">
@@ -641,18 +727,18 @@
 
         <!-- Property 3 -->
         <div class="prop-card">
-          <div class="prop-img">
-            <div class="prop-img-inner p3"><span class="prop-num">03</span></div>
-            <div class="prop-badge">New Listing</div>
+          <div class="prop-img" style="padding:0;">
+            <img src="photos/property3/DSC_9473.jpg" alt="The City Apartment — Manchester" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+            <div class="prop-badge" style="position:absolute;top:1rem;left:1rem;">New Listing</div>
           </div>
           <div class="prop-body">
             <div class="prop-location">Manchester City Centre · Northern Quarter</div>
-            <div class="prop-name">The City Apartment</div>
-            <div class="prop-desc">Modern 2-bed apartment with two bathrooms, adjustable workspace, free gym, and Nespresso. Perfect for families, contractors, and professionals.</div>
+            <div class="prop-name">The Duplex with Pool</div>
+            <div class="prop-desc">Stunning duplex with pool table, exposed timber beams, Printworks views, free gym, 500mbps Wi-Fi, and dedicated workspace. Steps from Victoria Station.</div>
             <div class="prop-meta">
               <span><strong>2</strong> Beds</span>
               <span><strong>2</strong> Baths</span>
-              <span><strong>4</strong> Guests</span>
+              <span><strong>5</strong> Guests</span>
             </div>
             <div class="prop-footer">
               <div class="prop-price">POA <small>/ contact us</small></div>
@@ -871,76 +957,76 @@
     </div>
   </div>
 
-  <section class="section">
-    <div class="container">
-      <div class="props-grid">
+<section class="section">
+  <div class="container">
+    <div class="props-grid">
 
-        <div class="prop-card">
-          <div class="prop-img">
-            <div class="prop-img-inner p1"><span class="prop-num">01</span></div>
-            <div class="prop-badge">★ 5.0 · 3 Reviews</div>
+      <div class="prop-card">
+        <div class="prop-img" style="padding:0;">
+          <img src="images/DSC_4544_NETFLIX.jpg" alt="The Duplex Loft" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+          <div class="prop-badge">★ 5.0 · 3 Reviews</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-location">Manchester City Centre · Northern Quarter</div>
+          <div class="prop-name">The Duplex Loft</div>
+          <div class="prop-desc">Stylish brick-loft duplex with two double bedrooms, dedicated workspace, free gym access, and Nespresso — in the heart of Manchester.</div>
+          <div class="prop-meta">
+            <span><strong>2</strong> Beds</span>
+            <span><strong>2</strong> Baths</span>
+            <span><strong>5</strong> Guests</span>
           </div>
-          <div class="prop-body">
-            <div class="prop-location">Manchester City Centre · Northern Quarter</div>
-            <div class="prop-name">The Duplex with Pool</div>
-            <div class="prop-desc">Stunning brick-loft duplex with pool table, free gym, 500mbps Wi-Fi, and a dedicated workspace. Steps from Victoria Station and the Printworks.</div>
-            <div class="prop-meta">
-              <span><strong>2</strong> Beds</span>
-              <span><strong>2</strong> Baths</span>
-              <span><strong>5</strong> Guests</span>
-            </div>
-            <div class="prop-footer">
-              <div class="prop-price">POA <small>/ contact us</small></div>
-              <a href="#" class="prop-link" onclick="showPage('property1')">View Details</a>
-            </div>
+          <div class="prop-footer">
+            <div class="prop-price">POA <small>/ contact us</small></div>
+            <a href="#" class="prop-link" onclick="showPage('property1')">View Details</a>
           </div>
         </div>
-
-        <div class="prop-card">
-          <div class="prop-img">
-            <div class="prop-img-inner p2"><span class="prop-num">02</span></div>
-            <div class="prop-badge">★ 5.0 · 4 Reviews</div>
-          </div>
-          <div class="prop-body">
-            <div class="prop-location">Manchester City Centre · Northern Quarter</div>
-            <div class="prop-name">The Duplex Loft</div>
-            <div class="prop-desc">Stylish brick-loft duplex with two double bedrooms, dedicated workspace, free gym access, and Nespresso — in the heart of Manchester.</div>
-            <div class="prop-meta">
-              <span><strong>2</strong> Beds</span>
-              <span><strong>1</strong> Bath</span>
-              <span><strong>5</strong> Guests</span>
-            </div>
-            <div class="prop-footer">
-              <div class="prop-price">POA <small>/ contact us</small></div>
-              <a href="#" class="prop-link" onclick="showPage('property2')">View Details</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="prop-card">
-          <div class="prop-img">
-            <div class="prop-img-inner p3"><span class="prop-num">03</span></div>
-            <div class="prop-badge">New Listing</div>
-          </div>
-          <div class="prop-body">
-            <div class="prop-location">Manchester City Centre · Northern Quarter</div>
-            <div class="prop-name">The City Apartment</div>
-            <div class="prop-desc">Modern 2-bed apartment with two bathrooms, adjustable workspace, free gym, and Nespresso. Perfect for families, contractors, and professionals.</div>
-            <div class="prop-meta">
-              <span><strong>2</strong> Beds</span>
-              <span><strong>2</strong> Baths</span>
-              <span><strong>4</strong> Guests</span>
-            </div>
-            <div class="prop-footer">
-              <div class="prop-price">POA <small>/ contact us</small></div>
-              <a href="#" class="prop-link" onclick="showPage('property3')">View Details</a>
-            </div>
-          </div>
-        </div>
-
       </div>
+
+      <div class="prop-card">
+        <div class="prop-img" style="padding:0;">
+          <img src="images/DSC_9555_NETFLIX.jpg" alt="The City Apartment" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+          <div class="prop-badge">★ 5.0 · 4 Reviews</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-location">Manchester City Centre · Northern Quarter</div>
+          <div class="prop-name">The City Apartment</div>
+          <div class="prop-desc">Modern 2-bed apartment with two bathrooms, adjustable workspace, free gym, and Netflix-ready Smart TV. Perfect for families, contractors, and professionals.</div>
+          <div class="prop-meta">
+            <span><strong>2</strong> Beds</span>
+            <span><strong>2</strong> Baths</span>
+            <span><strong>5</strong> Guests</span>
+          </div>
+          <div class="prop-footer">
+            <div class="prop-price">POA <small>/ contact us</small></div>
+            <a href="#" class="prop-link" onclick="showPage('property2')">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prop-card">
+        <div class="prop-img" style="padding:0;">
+          <img src="images/DSC_8501_NETFLIX.jpg" alt="The Duplex with Pool" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+          <div class="prop-badge" style="position:absolute;top:1rem;left:1rem;">New Listing</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-location">Manchester City Centre · Northern Quarter</div>
+          <div class="prop-name">The Duplex with Pool</div>
+          <div class="prop-desc">Stunning duplex with pool table, exposed timber beams, Printworks views, free gym, 500mbps Wi-Fi, and dedicated workspace. Steps from Victoria Station.</div>
+          <div class="prop-meta">
+            <span><strong>2</strong> Beds</span>
+            <span><strong>2</strong> Baths</span>
+            <span><strong>5</strong> Guests</span>
+          </div>
+          <div class="prop-footer">
+            <div class="prop-price">POA <small>/ contact us</small></div>
+            <a href="#" class="prop-link" onclick="showPage('property3')">View Details</a>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
   <div class="cta-band">
     <div class="container text-center">
@@ -951,20 +1037,20 @@
   </div>
 
 </div><!-- /page-properties -->
-
-
 <!-- ═══════════════════════════════════════════════════════
-     PROPERTY 1 DETAIL
+     PROPERTY 1 DETAIL — Duplex Loft
 ═══════════════════════════════════════════════════════ -->
 <div class="page" id="page-property1">
+
+  <!-- HERO PHOTO HEADER -->
   <div style="padding-top:4.5rem">
     <div class="prop-detail-header">
-      <div class="prop-detail-img">
-        <div class="img-label" style="font-size:5rem;color:rgba(255,255,255,0.12);text-align:center;padding:2rem">The Duplex<br>with Pool</div>
+      <div class="prop-detail-img" style="background:#1a1715; padding:0; overflow:hidden;">
+        <img src="images/DSC_9374.jpg" alt="The Duplex with Pool — living room" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <div class="prop-detail-sidebar">
         <div class="prop-location">Manchester City Centre &nbsp;·&nbsp; 2 Bed / 2 Bath &nbsp;·&nbsp; ★ 5.0 (3 reviews)</div>
-        <h1>The Duplex with Pool</h1>
+        <h1>The Duplex Loft</h1>
         <p>A stunning brick-loft duplex in the heart of Manchester city centre. Featuring a pool table, free building gym, 500mbps Wi-Fi, and a dedicated adjustable workspace — all with superb access to the city's best transport, entertainment, and dining.</p>
         <div class="prop-amenities">
           <span>Super King bed (Bedroom 1)</span>
@@ -986,136 +1072,59 @@
       </div>
     </div>
   </div>
+
   <section class="section">
+    <section class="section" style="padding-top:2rem;padding-bottom:2rem;">
+      <div class="container">
+        <div class="gallery-wrapper">
+          <button class="gallery-btn prev" onclick="scrollGallery('gallery1',-1)">&#10094;</button>
+          <div class="gallery" id="gallery1">
+            <img src="images/DSC_4756.jpg" alt="Property photo">
+            <img src="images/DSC_4771.jpg" alt="Property photo">
+            <img src="images/DSC_4788.jpg" alt="Property photo">
+            <img src="images/DSC_4447.jpg" alt="Property photo">
+            <img src="images/DSC_4585_NETFLIX.jpg" alt="Property photo">
+            <img src="images/DSC_4597.jpg" alt="Property photo">
+            <img src="images/DSC_4764.jpg" alt="Property photo">
+            <img src="images/DSC_4608_NETFLIX.jpg" alt="Property photo">
+            <img src="images/DSC_4632.jpg" alt="Property photo">
+            <img src="images/DSC_4656.jpg" alt="Property photo">
+            <img src="images/DSC_4696.jpg" alt="Property photo">
+            <img src="images/DSC_4387.jpg" alt="Property photo">
+            <img src="images/DSC_4397.jpg" alt="Property photo">
+            <img src="images/DSC_4668.jpg" alt="Property photo">
+            <img src="images/DSC_4468.jpg" alt="Property photo">
+            <img src="images/DSC_4483.jpg" alt="Property photo">
+            <img src="images/DSC_4531.jpg" alt="Property photo">
+            <img src="images/DSC_4544_NETFLIX.jpg" alt="Property photo">
+            <img src="images/DSC_4795.jpg" alt="Property photo">
+            <img src="images/DSC_4721.jpg" alt="Property photo">
+          </div>
+          <button class="gallery-btn next" onclick="scrollGallery('gallery1',1)">&#10095;</button>
+        </div>
+      </div>
+    </section>
+
     <div class="container">
       <div class="split" style="gap:4rem">
         <div>
           <div class="eyebrow">About This Property</div>
-          <h2 style="font-size:2rem">Loft living in the city centre</h2>
+          <h2 style="font-size:2rem">Loft living with a pool table &amp; Printworks views</h2>
           <div class="rule"></div>
-          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">This stunning brick-layered duplex apartment is set inside a beautiful quiet residential building, right in the heart of Manchester. The space sleeps up to 5 guests across a super king bedroom, a double bedroom, and a sofa bed in the living area.</p>
-          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The property is packed with premium touches — a pool table, fully equipped kitchen with Nespresso, flat screen smart TV, double-glazed windows, and a dedicated adjustable desk for those working remotely. Guests also have free access to the fully equipped gym within the building.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">This stunning brick-layered duplex apartment is set inside a beautiful period building right in the heart of Manchester, with views directly over the Printworks. The space sleeps up to 5 guests across a super king bedroom, a double bedroom, and a sofa bed in the living area.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The property is packed with premium touches — a pool table, fully equipped kitchen with Nespresso, flat screen smart TV, exposed timber beams, and a dedicated adjustable desk for those working remotely. Guests also have free access to the fully equipped gym within the building.</p>
 
-          <div style="margin:2rem 0; padding:1.5rem; background:var(--cream); border-left:2px solid var(--accent)">
-            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem">What's nearby</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem">
-              <span style="font-size:0.82rem;color:var(--mid)">5 min walk — Victoria Station</span>
-              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Arndale Centre</span>
-              <span style="font-size:0.82rem;color:var(--mid)">8 min walk — AO Arena</span>
-              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Vue Cinema</span>
-              <span style="font-size:0.82rem;color:var(--mid)">Next door — Printworks</span>
-              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Shudehill Tram</span>
-              <span style="font-size:0.82rem;color:var(--mid)">15 min walk — Piccadilly Station</span>
-              <span style="font-size:0.82rem;color:var(--mid)">30 min drive — Peak District</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:2rem 0;">
+            <div style="aspect-ratio:3/4;overflow:hidden;">
+              <img src="images/DSC_4668.jpg" alt="Adjustable standing desk workspace" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:3/4;overflow:hidden;">
+              <img src="images/DSC_4531.jpg" alt="Bathroom with walk-in shower" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:3/4;overflow:hidden;">
+              <img src="images/DSC_4468.jpg" alt="Industrial clothes rail and storage" style="width:100%;height:100%;object-fit:cover;">
             </div>
           </div>
-
-          <div style="margin-bottom:1rem">
-            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:0.75rem">Ideal for</div>
-            <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
-              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Long-term Stays</span>
-              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Contractors</span>
-              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Business Travellers</span>
-              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Families &amp; Friends</span>
-              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Corporate Relocations</span>
-            </div>
-          </div>
-
-          <div style="margin-top:2rem;padding:1.5rem;background:var(--cream)">
-            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem">What guests say</div>
-            <div style="font-family:var(--display);font-size:1rem;font-style:italic;color:var(--ink);line-height:1.6;margin-bottom:0.5rem">"Wonderful place! Very spacious and in a really great location. The flat is in a beautiful building with great amenities. Bryce was super quick with communicating and very accommodating!"</div>
-            <div style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid)">Michael — ★★★★★</div>
-          </div>
-        </div>
-        <div>
-          <div class="booking-card" style="position:sticky;top:6rem">
-            <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:0.4rem">Book This Property</h3>
-            <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1.5rem">Check-in from 16:00 · Check-out by 11:00 · Max 5 guests</p>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Check-in</label>
-                <input type="date">
-              </div>
-              <div class="form-group">
-                <label>Check-out</label>
-                <input type="date">
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Guests</label>
-              <select><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5 Guests</option></select>
-            </div>
-            <div class="form-group">
-              <label>Your Name</label>
-              <input type="text" placeholder="Full name">
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" placeholder="your@email.com">
-            </div>
-            <div class="form-group">
-              <label>Phone</label>
-              <input type="tel" placeholder="+44">
-            </div>
-            <div class="form-group">
-              <label>Message (optional)</label>
-              <textarea placeholder="Long-term stay? Corporate booking? Let us know..."></textarea>
-            </div>
-            <button class="btn-full" onclick="alert('Thank you! We\'ll be in touch within 24 hours.')">Send Enquiry</button>
-            <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">Extended stay discounts available — just ask</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <div style="text-align:center;padding:1rem 0 4rem">
-    <a href="#" class="btn-primary" onclick="showPage('properties')" style="font-size:0.72rem">← Back to All Properties</a>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════════════════
-     PROPERTY 2 DETAIL
-═══════════════════════════════════════════════════════ -->
-<div class="page" id="page-property2">
-  <div style="padding-top:4.5rem">
-    <div class="prop-detail-header">
-      <div class="prop-detail-img" style="background:linear-gradient(135deg, #C4B8A8 0%, #96897B 100%)">
-        <div class="img-label" style="font-size:5rem;color:rgba(255,255,255,0.12);text-align:center;padding:2rem">The Duplex<br>Loft</div>
-      </div>
-      <div class="prop-detail-sidebar">
-        <div class="prop-location">Manchester City Centre &nbsp;·&nbsp; 2 Bed / 1 Bath &nbsp;·&nbsp; ★ 5.0 (4 reviews)</div>
-        <h1>The Duplex Loft</h1>
-        <p>A beautifully designed brick-loft duplex apartment with two double bedrooms, a dedicated workspace, free gym access, and a Nespresso machine — perfectly positioned in Manchester city centre with unbeatable transport links.</p>
-        <div class="prop-amenities">
-          <span>Double bed (Bedroom 1)</span>
-          <span>Double bed (Bedroom 2)</span>
-          <span>Sofa bed in living room</span>
-          <span>1 private bathroom</span>
-          <span>500mbps Wi-Fi</span>
-          <span>Standing adjustable desk</span>
-          <span>Free building gym</span>
-          <span>Nespresso coffee machine</span>
-          <span>Fully equipped kitchen</span>
-          <span>Smart TV</span>
-          <span>Double glazed windows</span>
-          <span>Keyless / flexible check-in</span>
-        </div>
-        <div class="detail-price">Contact Us <small>for pricing &amp; availability</small></div>
-        <br>
-        <a href="#" class="btn-primary" onclick="showPage('contact')">Enquire / Book</a>
-      </div>
-    </div>
-  </div>
-  <section class="section">
-    <div class="container">
-      <div class="split" style="gap:4rem">
-        <div>
-          <div class="eyebrow">About This Property</div>
-          <h2 style="font-size:2rem">The Manchester duplex with 5-star reviews</h2>
-          <div class="rule"></div>
-          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">This stunning loft-style duplex apartment is set inside a beautiful residential building, right in the centre of Manchester. Rated 5.0 across all reviews, with guests consistently praising the location, cleanliness, and check-in experience.</p>
-          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The apartment sleeps up to 5 across two double bedrooms and a sofa bed, and features a dedicated workspace with a standing adjustable desk — ideal for longer work stays and corporate lets. The fully equipped kitchen and Nespresso machine make settling in effortless.</p>
 
           <div style="margin:2rem 0; padding:1.5rem; background:var(--cream); border-left:2px solid var(--accent)">
             <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem">What's nearby</div>
@@ -1147,41 +1156,38 @@
             <div style="font-family:var(--display);font-size:1rem;font-style:italic;color:var(--ink);line-height:1.6;margin-bottom:0.5rem">"The apartment was beautifully maintained, spotless and in a super convenient location. Everything looked new and was exactly as pictured. Bryce was incredibly responsive."</div>
             <div style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid)">Natalie — ★★★★★</div>
           </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2rem;">
+            <div style="aspect-ratio:4/3;overflow:hidden;">
+              <img src="images/DSC_4795.jpg" alt="Dining area with panoramic brick windows" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:4/3;overflow:hidden;">
+              <img src="images/DSC_4721.jpg" alt="Living room second angle" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:4/3;overflow:hidden;">
+              <img src="images/DSC_4764.jpg" alt="Kitchen second angle" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:4/3;overflow:hidden;">
+              <img src="images/DSC_4756.jpg" alt="Coffee table detail" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
         </div>
         <div>
           <div class="booking-card" style="position:sticky;top:6rem">
             <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:0.4rem">Book This Property</h3>
             <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1.5rem">Check-in from 16:00 · Check-out by 11:00 · Max 5 guests</p>
             <div class="form-row">
-              <div class="form-group">
-                <label>Check-in</label>
-                <input type="date">
-              </div>
-              <div class="form-group">
-                <label>Check-out</label>
-                <input type="date">
-              </div>
+              <div class="form-group"><label>Check-in</label><input type="date"></div>
+              <div class="form-group"><label>Check-out</label><input type="date"></div>
             </div>
             <div class="form-group">
               <label>Guests</label>
               <select><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5 Guests</option></select>
             </div>
-            <div class="form-group">
-              <label>Your Name</label>
-              <input type="text" placeholder="Full name">
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" placeholder="your@email.com">
-            </div>
-            <div class="form-group">
-              <label>Phone</label>
-              <input type="tel" placeholder="+44">
-            </div>
-            <div class="form-group">
-              <label>Message (optional)</label>
-              <textarea placeholder="Long-term stay? Corporate booking? Let us know..."></textarea>
-            </div>
+            <div class="form-group"><label>Your Name</label><input type="text" placeholder="Full name"></div>
+            <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+            <div class="form-group"><label>Phone</label><input type="tel" placeholder="+44"></div>
+            <div class="form-group"><label>Message (optional)</label><textarea placeholder="Long-term stay? Corporate booking? Let us know..."></textarea></div>
             <button class="btn-full" onclick="alert('Thank you! We\'ll be in touch within 24 hours.')">Send Enquiry</button>
             <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">Extended stay discounts available — just ask</p>
           </div>
@@ -1196,30 +1202,31 @@
 
 
 <!-- ═══════════════════════════════════════════════════════
-     PROPERTY 3 DETAIL
+     PROPERTY 2 DETAIL — City Apartment
 ═══════════════════════════════════════════════════════ -->
-<div class="page" id="page-property3">
+<div class="page" id="page-property2">
+
   <div style="padding-top:4.5rem">
     <div class="prop-detail-header">
-      <div class="prop-detail-img" style="background:linear-gradient(135deg, #B8C0C4 0%, #8096A0 100%)">
-        <div class="img-label" style="font-size:5rem;color:rgba(255,255,255,0.12);text-align:center;padding:2rem">The City<br>Apartment</div>
+      <div class="prop-detail-img" style="background:#1a1715; padding:0; overflow:hidden;">
+        <img src="images/DSC_9374.jpg" alt="The Duplex with Pool — living room" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <div class="prop-detail-sidebar">
         <div class="prop-location">Manchester City Centre &nbsp;·&nbsp; 2 Bed / 2 Bath &nbsp;·&nbsp; New Listing</div>
         <h1>The City Apartment</h1>
-        <p>A modern, stylish 2-bedroom apartment in the heart of Manchester. Two bathrooms, a dedicated standing workspace, free gym access, Nespresso, and exceptional host communication — rated 5 stars.</p>
+        <p>A stylish, character-filled apartment in the heart of Manchester. Exposed brick walls, sage green kitchen, adjustable workspace, Netflix, and two beautifully finished bathrooms — ready from day one.</p>
         <div class="prop-amenities">
           <span>Double bed (Bedroom 1)</span>
           <span>2× Single beds (Bedroom 2)</span>
-          <span>2 private bathrooms</span>
+          <span>2 premium bathrooms</span>
           <span>500mbps Wi-Fi</span>
           <span>Standing adjustable desk</span>
           <span>Free building gym</span>
-          <span>Nespresso coffee machine</span>
-          <span>Fully equipped kitchen</span>
-          <span>Smart TV</span>
-          <span>Private balcony</span>
-          <span>Double glazed windows</span>
+          <span>Netflix-ready Smart TV</span>
+          <span>Sage green fitted kitchen</span>
+          <span>Retro smeg-style fridge</span>
+          <span>Exposed brick character</span>
+          <span>Industrial clothes rail</span>
           <span>Keyless / flexible check-in</span>
         </div>
         <div class="detail-price">Contact Us <small>for pricing &amp; availability</small></div>
@@ -1228,15 +1235,59 @@
       </div>
     </div>
   </div>
+
   <section class="section">
+    <section class="section" style="padding-top:2rem;padding-bottom:2rem;">
+      <div class="container">
+        <div class="gallery-wrapper">
+          <button class="gallery-btn prev" onclick="scrollGallery('gallery2',-1)">&#10094;</button>
+          <div class="gallery" id="gallery2">
+            <img src="images/DSC_9527.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9374.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9480.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9541_NETFLIX.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9694.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9428.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9443.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9382.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9410.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9473.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9548.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9635.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9541.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9555_NETFLIX.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9608.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9629.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9465_NETFLIX.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9473_NETFLIX.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9512.jpg" alt="The Duplex with Pool">
+            <img src="images/DSC_9520.jpg" alt="The Duplex with Pool">
+          </div>
+          <button class="gallery-btn next" onclick="scrollGallery('gallery2',1)">&#10095;</button>
+        </div>
+      </div>
+    </section>
+
     <div class="container">
       <div class="split" style="gap:4rem">
         <div>
           <div class="eyebrow">About This Property</div>
-          <h2 style="font-size:2rem">Modern city living, fully equipped</h2>
+          <h2 style="font-size:2rem">Character, comfort &amp; the city at your door</h2>
           <div class="rule"></div>
-          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The City Apartment is our newest listing — a stylish, modern apartment in the same sought-after Manchester city centre location as our other properties. Featuring two bedrooms and two bathrooms, it offers more space and flexibility than a typical city centre flat.</p>
-          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">Bryce has been rated 5 stars for communication — so from the moment you enquire to the moment you check out, you'll always know exactly where you stand. The dedicated adjustable workspace and free gym make it just as well suited to a work trip as a leisure stay.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The City Apartment is set inside a stunning period building in central Manchester, featuring original exposed brick walls, large sash windows with city views, and high-end interior design throughout. It's a space that genuinely feels different — warm, characterful, and thoughtfully put together.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The kitchen is finished in sage green with a retro-style fridge, induction hob, microwave, and everything you need to cook properly. The two bathrooms are beautifully fitted with walk-in rain showers and black fixtures. And for those working remotely, the dedicated standing desk sits right in front of the original brick windows.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:2rem 0;">
+            <div style="aspect-ratio:3/4;overflow:hidden;">
+              <img src="images/DSC_9635.jpg" alt="Adjustable workspace" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:3/4;overflow:hidden;">
+              <img src="images/DSC_9443.jpg" alt="Private bathroom" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:3/4;overflow:hidden;">
+              <img src="images/DSC_9410.jpg" alt="Pool table" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
 
           <div style="margin:2rem 0; padding:1.5rem; background:var(--cream); border-left:2px solid var(--accent)">
             <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem">What's nearby</div>
@@ -1262,41 +1313,207 @@
               <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Corporate Relocations</span>
             </div>
           </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2rem;">
+            <div style="aspect-ratio:4/3;overflow:hidden;">
+              <img src="images/DSC_9512.jpg" alt="Dining area" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:4/3;overflow:hidden;">
+              <img src="images/DSC_9548.jpg" alt="Living room second angle" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:4/3;overflow:hidden;">
+              <img src="images/DSC_9527.jpg" alt="Kitchen second angle" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:4/3;overflow:hidden;">
+              <img src="images/DSC_9629.jpg" alt="Coffee table detail" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+
+          <div style="margin-top:2rem;padding:1.5rem;background:var(--cream)">
+            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem">What guests say</div>
+            <div style="font-family:var(--display);font-size:1rem;font-style:italic;color:var(--ink);line-height:1.6;margin-bottom:0.5rem">"Wonderful place! Very spacious and in a really great location. The flat is in a beautiful building with great amenities. Bryce was super quick with communicating and very accommodating!"</div>
+            <div style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid)">Michael — ★★★★★</div>
+          </div>
         </div>
         <div>
           <div class="booking-card" style="position:sticky;top:6rem">
             <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:0.4rem">Book This Property</h3>
-            <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1.5rem">Check-in from 16:00 · Check-out by 11:00 · Max 4 guests</p>
+            <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1.5rem">Check-in from 16:00 · Check-out by 11:00 · Max 5 guests</p>
             <div class="form-row">
-              <div class="form-group">
-                <label>Check-in</label>
-                <input type="date">
-              </div>
-              <div class="form-group">
-                <label>Check-out</label>
-                <input type="date">
-              </div>
+              <div class="form-group"><label>Check-in</label><input type="date"></div>
+              <div class="form-group"><label>Check-out</label><input type="date"></div>
             </div>
             <div class="form-group">
               <label>Guests</label>
-              <select><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option></select>
+              <select><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5 Guests</option></select>
+            </div>
+            <div class="form-group"><label>Your Name</label><input type="text" placeholder="Full name"></div>
+            <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+            <div class="form-group"><label>Phone</label><input type="tel" placeholder="+44"></div>
+            <div class="form-group"><label>Message (optional)</label><textarea placeholder="Long-term stay? Corporate booking? Let us know..."></textarea></div>
+            <button class="btn-full" onclick="alert('Thank you! We\'ll be in touch within 24 hours.')">Send Enquiry</button>
+            <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">Extended stay discounts available — just ask</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div style="text-align:center;padding:1rem 0 4rem">
+    <a href="#" class="btn-primary" onclick="showPage('properties')" style="font-size:0.72rem">← Back to All Properties</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PROPERTY 3 DETAIL — Duplex with Pool
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-property3">
+
+  <div style="padding-top:4.5rem">
+    <div class="prop-detail-header">
+      <div class="prop-detail-img" style="background:#1a1715; padding:0; overflow:hidden;">
+        <img src="images/DSC_8634.jpg" alt="The Duplex with Pool — living room" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="prop-detail-sidebar">
+        <div class="prop-location">Manchester City Centre &nbsp;·&nbsp; 2 Bed / 2 Bath &nbsp;·&nbsp; ★ 5.0 (3 reviews)</div>
+        <h1>The Duplex with Pool</h1>
+        <p>A stunning brick-loft duplex in the heart of Manchester city centre. Featuring a pool table, free building gym, 500mbps Wi-Fi, and a dedicated adjustable workspace — all with superb access to the city's best transport, entertainment, and dining.</p>
+        <div class="prop-amenities">
+          <span>Super King bed (Bedroom 1)</span>
+          <span>Double bed (Bedroom 2)</span>
+          <span>Sofa bed in living room</span>
+          <span>2 private bathrooms</span>
+          <span>500mbps Wi-Fi</span>
+          <span>Pool table</span>
+          <span>Free building gym</span>
+          <span>Adjustable workspace</span>
+          <span>Nespresso coffee machine</span>
+          <span>Fully equipped kitchen</span>
+          <span>Smart TV</span>
+          <span>Keyless / flexible check-in</span>
+        </div>
+        <div class="detail-price">Contact Us <small>for pricing &amp; availability</small></div>
+        <br>
+        <a href="#" class="btn-primary" onclick="showPage('contact')">Enquire / Book</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <section class="section" style="padding-top:2rem;padding-bottom:2rem;">
+      <div class="container">
+        <div class="gallery-wrapper">
+          <button class="gallery-btn prev" onclick="scrollGallery('gallery3',-1)">&#10094;</button>
+          <div class="gallery" id="gallery3">
+            <img src="images/DSC_8634.jpg" alt="Property photo">
+            <img src="images/DSC_8704.jpg" alt="Property photo">
+            <img src="images/DSC_8523_NETFLIX.jpg" alt="Property photo">
+            <img src="images/DSC_8611.jpg" alt="Property photo">
+            <img src="images/DSC_8618.jpg" alt="Property photo">
+            <img src="images/DSC_8531.jpg" alt="Property photo">
+            <img src="images/DSC_8546.jpg" alt="Property photo">
+            <img src="images/DSC_8777.jpg" alt="Property photo">
+            <img src="images/DSC_8563.jpg" alt="Property photo">
+            <img src="images/DSC_8501_NETFLIX.jpg" alt="Property photo">
+            <img src="images/DSC_8508_NETFLIX.jpg" alt="Property photo">
+            <img src="images/DSC_8643.jpg" alt="Property photo">
+            <img src="images/DSC_8675.jpg" alt="Property photo">
+            <img src="images/DSC_8508.jpg" alt="Property photo">
+            <img src="images/DSC_8516.jpg" alt="Property photo">
+            <img src="images/DSC_8773.jpg" alt="Property photo">
+            <img src="images/DSC_8802.jpg" alt="Property photo">
+            <img src="images/DSC_8501.jpg" alt="Property photo">
+            <img src="images/DSC_8516_NETFLIX.jpg" alt="Property photo">
+            <img src="images/DSC_8523.jpg" alt="Property photo">
+          </div>
+          <button class="gallery-btn next" onclick="scrollGallery('gallery3',1)">&#10095;</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="split" style="gap:4rem">
+        <div>
+          <div class="eyebrow">About This Property</div>
+          <h2 style="font-size:2rem">Loft living with a pool table &amp; Printworks views</h2>
+          <div class="rule"></div>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">This stunning brick-layered duplex apartment is set inside a beautiful period building right in the heart of Manchester, with views directly over the Printworks. The space sleeps up to 5 guests across a super king bedroom, a double bedroom, and a sofa bed in the living area.</p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:1rem">The property is packed with premium touches — a pool table, fully equipped kitchen with Nespresso, flat screen smart TV, exposed timber beams, and a dedicated adjustable desk for those working remotely. Guests also have free access to the fully equipped gym within the building.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:2rem 0;">
+            <div style="aspect-ratio:3/4;overflow:hidden;">
+              <img src="images/DSC_8643.jpg" alt="Standing adjustable desk workspace" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:3/4;overflow:hidden;">
+              <img src="images/DSC_8675.jpg" alt="Bathroom" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:3/4;overflow:hidden;">
+              <img src="images/DSC_8802.jpg" alt="Storage and finishing detail" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+
+          <div style="margin:2rem 0; padding:1.5rem; background:var(--cream); border-left:2px solid var(--accent)">
+            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem">What's nearby</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem">
+              <span style="font-size:0.82rem;color:var(--mid)">5 min walk — Victoria Station</span>
+              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Arndale Centre</span>
+              <span style="font-size:0.82rem;color:var(--mid)">8 min walk — AO Arena</span>
+              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Vue Cinema</span>
+              <span style="font-size:0.82rem;color:var(--mid)">Next door — Printworks</span>
+              <span style="font-size:0.82rem;color:var(--mid)">1 min walk — Shudehill Tram</span>
+              <span style="font-size:0.82rem;color:var(--mid)">15 min walk — Piccadilly Station</span>
+              <span style="font-size:0.82rem;color:var(--mid)">30 min drive — Peak District</span>
+            </div>
+          </div>
+
+          <div style="margin-bottom:1rem">
+            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:0.75rem">Ideal for</div>
+            <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Long-term Stays</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Contractors</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Business Travellers</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Families &amp; Friends</span>
+              <span style="font-size:0.75rem;border:1px solid var(--rule);padding:0.3rem 0.8rem;color:var(--mid)">Corporate Relocations</span>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2rem;">
+            <div style="aspect-ratio:4/3;overflow:hidden;">
+              <img src="images/DSC_8773.jpg" alt="Dining area" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:4/3;overflow:hidden;">
+              <img src="images/DSC_8777.jpg" alt="Living room second angle" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:4/3;overflow:hidden;">
+              <img src="images/DSC_8563.jpg" alt="Kitchen second angle" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="aspect-ratio:4/3;overflow:hidden;">
+              <img src="images/DSC_8546.jpg" alt="Bedroom detail" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+
+          <div style="margin-top:2rem;padding:1.5rem;background:var(--cream)">
+            <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem">What guests say</div>
+            <div style="font-family:var(--display);font-size:1rem;font-style:italic;color:var(--ink);line-height:1.6;margin-bottom:0.5rem">"The apartment was beautifully maintained, spotless and in a super convenient location. Everything looked new and was exactly as pictured. Bryce was incredibly responsive."</div>
+            <div style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid)">Natalie — ★★★★★</div>
+          </div>
+        </div>
+        <div>
+          <div class="booking-card" style="position:sticky;top:6rem">
+            <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:0.4rem">Book This Property</h3>
+            <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1.5rem">Check-in from 16:00 · Check-out by 11:00 · Max 5 guests</p>
+            <div class="form-row">
+              <div class="form-group"><label>Check-in</label><input type="date"></div>
+              <div class="form-group"><label>Check-out</label><input type="date"></div>
             </div>
             <div class="form-group">
-              <label>Your Name</label>
-              <input type="text" placeholder="Full name">
+              <label>Guests</label>
+              <select><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5 Guests</option></select>
             </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" placeholder="your@email.com">
-            </div>
-            <div class="form-group">
-              <label>Phone</label>
-              <input type="tel" placeholder="+44">
-            </div>
-            <div class="form-group">
-              <label>Message (optional)</label>
-              <textarea placeholder="Long-term stay? Corporate booking? Let us know..."></textarea>
-            </div>
+            <div class="form-group"><label>Your Name</label><input type="text" placeholder="Full name"></div>
+            <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+            <div class="form-group"><label>Phone</label><input type="tel" placeholder="+44"></div>
+            <div class="form-group"><label>Message (optional)</label><textarea placeholder="Long-term stay? Corporate booking? Let us know..."></textarea></div>
             <button class="btn-full" onclick="alert('Thank you! We\'ll be in touch within 24 hours.')">Send Enquiry</button>
             <p style="font-size:0.72rem;color:var(--mid);text-align:center;margin-top:1rem">Extended stay discounts available — just ask</p>
           </div>
@@ -1642,9 +1859,9 @@
       <div class="footer-col">
         <h4>Properties</h4>
         <ul>
-          <li><a href="#" onclick="showPage('property1')">The Duplex with Pool</a></li>
-          <li><a href="#" onclick="showPage('property2')">The Duplex Loft</a></li>
-          <li><a href="#" onclick="showPage('property3')">The City Apartment</a></li>
+          <li><a href="#" onclick="showPage('property1')">The Duplex Loft</a></li>
+          <li><a href="#" onclick="showPage('property2')">The City Apartment</a></li>
+          <li><a href="#" onclick="showPage('property3')">The Duplex with Pool</a></li>
           <li><a href="#" onclick="showPage('properties')">All Properties</a></li>
         </ul>
       </div>
@@ -1696,6 +1913,14 @@
   function toggleMenu() {
     document.getElementById('mobileMenu').classList.toggle('open');
   }
+  function scrollGallery(id, direction) {
+    const gallery = document.getElementById(id);
+    const amount = gallery.clientWidth + 16;
+    gallery.scrollBy({
+        left: amount * direction,
+        behavior: "smooth"
+    });
+}
 </script>
 </body>
 </html>
